@@ -14,7 +14,12 @@ import { ContainerComponent } from './shared/container/container.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CardBuscaComponent } from './shared/card-busca/card-busca.component';
 import { MatCardModule } from '@angular/material/card';
-
+import { FilterBuscaComponent } from './shared/filter-busca/filter-busca.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -25,14 +30,20 @@ import { MatCardModule } from '@angular/material/card';
     CardComponent,
     ContainerComponent,
     HomeComponent,
-    CardBuscaComponent
+    CardBuscaComponent,
+    FilterBuscaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatToolbarModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonToggleModule,
+    MatIconModule,
+    MatChipsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     provideAnimationsAsync()
