@@ -1,15 +1,21 @@
 .app-header {
 
-    button {
-        max-width: 600px;
-        margin: 0 16px;
-    }
+  button {
+    margin: 0 16px;
+  }
 
-    .spacer {
-        flex: 1 1 auto;
-    }
+  .spacer {
+    flex: 1 1 auto;
+  }
 
-    .mat-toolbar {
-        padding: 0 125px;
-    }
+  .mat-toolbar {
+    background-color: black;
+    color: white;
+    padding: 0 256px;
+  }
+
+  .mat-mdc-outlined-button:not(:disabled) {
+    border-color: white;
+  }
 }
+

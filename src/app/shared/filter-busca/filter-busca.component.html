@@ -1,32 +1,29 @@
 <app-card variant="secondary" class="filter-busca">
-    <form>
-        <h2>Pratos</h2>
-        <div class="flex-container">
-            <mat-button-toggle-group aria-label="Tipo de passagem">
-                <mat-button-toggle >
-                    Tudo 
-                </mat-button-toggle>
-                <mat-button-toggle >
-                    Bebida
-                </mat-button-toggle>
-            </mat-button-toggle-group>
-            <mat-chip-listbox aria-label="Critérios">
-                <mat-chip-option>Salgado</mat-chip-option>
-                <mat-chip-option>Doce</mat-chip-option>
-            </mat-chip-listbox>
-        </div>
-        <div class="flex-container">
-            <mat-form-field class="input-container" appearance="outline">
-                <mat-label>Pedido</mat-label>
-                <mat-icon matPreffix>restaurant_menu</mat-icon>
-                <input matInput placeholder="Pedido">
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-        </div>
-        <div class="flex-container">
-            <div class="example-button-row">
-                <button mat-raised-button color="primary">Primary</button>
-            </div>
-        </div>
-    </form>
+  <form>
+    <h2>Pratos</h2>
+    <div class="flex-container">
+      <mat-button-toggle-group aria-label="Tipo de pratos">
+        <mat-button-toggle checked>
+          <mat-icon>check</mat-icon>
+          TUDO
+        </mat-button-toggle>
+        <mat-button-toggle>BEBIDA</mat-button-toggle>
+      </mat-button-toggle-group>
+      <mat-chip-listbox aria-label="Seleção de critérios">
+        <mat-chip-option selected>Salgado</mat-chip-option>
+        <mat-chip-option>Doce</mat-chip-option>
+      </mat-chip-listbox>
+    </div>
+    <div class="flex-container">
+      <mat-form-field class="input-container" appearance="outline">
+        <mat-label>Pedido</mat-label>
+        <mat-icon matPrefix>
+          restaurant_menu
+        </mat-icon>
+        <input matInput placeholder="Pedido">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <button mat-flat-button color="primary">BUSCAR</button>
+    </div>
+  </form>
 </app-card>
