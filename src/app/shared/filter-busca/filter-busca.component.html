@@ -9,7 +9,7 @@
         </mat-button-toggle>
         <mat-button-toggle>BEBIDA</mat-button-toggle>
       </mat-button-toggle-group>
-      <mat-chip-listbox aria-label="Seleção de critérios">
+      <mat-chip-listbox (click)="openDialog()" aria-label="Seleção de critérios">
         <mat-chip-option selected>Salgado</mat-chip-option>
         <mat-chip-option>Doce</mat-chip-option>
       </mat-chip-listbox>

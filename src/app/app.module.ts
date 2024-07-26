@@ -20,6 +20,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ModalComponent } from './shared/modal/modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BotaoControleComponent } from './shared/botao-controle/botao-controle.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { MatInputModule } from '@angular/material/input';
     ContainerComponent,
     HomeComponent,
     CardBuscaComponent,
-    FilterBuscaComponent
+    FilterBuscaComponent,
+    ModalComponent,
+    BotaoControleComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,8 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     MatChipsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
