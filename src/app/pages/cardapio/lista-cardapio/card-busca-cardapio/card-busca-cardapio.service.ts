@@ -18,4 +18,12 @@ export class CardBuscaCardapioService {
       quantidade: new FormControl(0)
     });
   }
+
+  obterControle(formControlName:string): FormControl {
+    const control = this.formCardapio.get(formControlName);
+    if (!control) {
+      throw new Error(`FormControl com nome "${formControlName}" não existe.`);
+    }
+    return control as FormControl;
+  }
 }

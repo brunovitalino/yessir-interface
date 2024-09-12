@@ -32,6 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CardBuscaCardapioComponent } from './pages/cardapio/lista-cardapio/card-busca-cardapio/card-busca-cardapio.component';
 import { CardapioComponent } from './pages/cardapio/cardapio.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SeletorQuantidadeComponent } from './shared/seletor-quantidade/seletor-quantidade.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     FilterCardapioComponent,
     ModalPedirComponent,
     CardBuscaCardapioComponent,
-    CardapioComponent
+    CardapioComponent,
+    SeletorQuantidadeComponent
   ],
   imports: [
     BrowserModule,
