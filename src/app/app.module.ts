@@ -26,11 +26,12 @@ import { BotaoControleComponent } from './shared/botao-controle/botao-controle.c
 import { ListaCardapioComponent } from './pages/cardapio/lista-cardapio/lista-cardapio.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { FilterCardapioComponent } from './pages/cardapio/lista-cardapio/filter-cardapio/filter-cardapio.component';
+import { FilterCardapioComponent } from './pages/cardapio/filter-cardapio/filter-cardapio.component';
 import { ModalPedirComponent } from './pages/cardapio/lista-cardapio/card-busca-cardapio/modal-pedir/modal-pedir.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CardBuscaCardapioComponent } from './pages/cardapio/lista-cardapio/card-busca-cardapio/card-busca-cardapio.component';
 import { CardapioComponent } from './pages/cardapio/cardapio.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { CardapioComponent } from './pages/cardapio/cardapio.component';
     MatDialogModule,
     MatSidenavModule,
     MatListModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

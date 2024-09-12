@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Cardapio } from '../../cardapio';
 import { CardapioService } from '../../cardapio.service';
 import { ModalPedirComponent } from './modal-pedir/modal-pedir.component';
+import { FormGroup } from '@angular/forms';
+import { CardBuscaCardapioService } from './card-busca-cardapio.service';
 
 @Component({
   selector: 'app-card-busca-cardapio',
@@ -12,16 +14,22 @@ import { ModalPedirComponent } from './modal-pedir/modal-pedir.component';
 export class CardBuscaCardapioComponent {
 
   @Input() cardapio : Cardapio = {
-    id: 1,
+    id: 999,
     nome: "Macarrão",
     preco: 24,
     nomeIcone: "local_dining",
-    tipo: "COMIDA",
+    tipo: "COMIDA"
   }
 
-  constructor(public dialog: MatDialog, private service: CardapioService) {}
+  constructor(
+    public dialog: MatDialog,
+    public cardBuscaCardapioService: CardBuscaCardapioService
+  ) { }
 
   openDialog() {
+    this.cardBuscaCardapioService.formCardapio.patchValue(this.cardapio);
+    window.console.log('ITEM ATUAL', this.cardapio);
+
     this.dialog.open(ModalPedirComponent, {
       width: '50%',
       disableClose: true

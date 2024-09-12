@@ -4,4 +4,5 @@ export interface Cardapio {
   preco: number;
   nomeIcone?: string;
   tipo: string;
+  quantidade?: number;
 }
