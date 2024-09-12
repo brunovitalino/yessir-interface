@@ -1,0 +1,11 @@
+<section class="homepage">
+  <app-container>
+    <h2>Cardápio</h2>
+    <app-filter-cardapio></app-filter-cardapio>
+    <div class="card-wrapper">
+      <div *ngFor="let item of listaCardapio">
+        <app-card-busca-cardapio [cardapio]="item"></app-card-busca-cardapio>
+      </div>
+    </div>
+  </app-container>
+</section>

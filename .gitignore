@@ -95,4 +95,7 @@ e2e/*.map
 .history
 .ionide
 
+# Ignore backend server for tests
+/backend
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,angular
