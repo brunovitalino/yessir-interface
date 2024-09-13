@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { ListaCardapioComponent } from './pages/cardapio/lista-cardapio/lista-cardapio.component';
 import { CardapioComponent } from './pages/cardapio/cardapio.component';
+import { PedidoListComponent } from './pages/pedido/pedido-list/pedido-list.component';
 
 const routes: Routes = [
   {
@@ -17,7 +17,11 @@ const routes: Routes = [
   {
     path: 'cardapio',
     component: CardapioComponent
-  }
+  },
+  {
+    path: 'pedido',
+    component: PedidoListComponent
+  },
 ];
 
 @NgModule({

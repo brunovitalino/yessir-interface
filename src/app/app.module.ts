@@ -33,6 +33,11 @@ import { CardBuscaCardapioComponent } from './pages/cardapio/lista-cardapio/card
 import { CardapioComponent } from './pages/cardapio/cardapio.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SeletorQuantidadeComponent } from './shared/seletor-quantidade/seletor-quantidade.component';
+import { CrudListComponent } from './shared/cruds/crud-list/crud-list.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PedidoListComponent } from './pages/pedido/pedido-list/pedido-list.component';
+import { MatTableModule } from '@angular/material/table';
+import { ModalAdicionarComponent } from './shared/modal-adicionar/modal-adicionar.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +57,10 @@ import { SeletorQuantidadeComponent } from './shared/seletor-quantidade/seletor-
     ModalPedirComponent,
     CardBuscaCardapioComponent,
     CardapioComponent,
-    SeletorQuantidadeComponent
+    SeletorQuantidadeComponent,
+    CrudListComponent,
+    PedidoListComponent,
+    ModalAdicionarComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +78,9 @@ import { SeletorQuantidadeComponent } from './shared/seletor-quantidade/seletor-
     MatSidenavModule,
     MatListModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Cardapio } from '../../cardapio';
+import { Cardapio } from '../../../../shared/model/cardapio';
 import { CardapioService } from '../../cardapio.service';
 import { ModalPedirComponent } from './modal-pedir/modal-pedir.component';
 import { FormGroup } from '@angular/forms';

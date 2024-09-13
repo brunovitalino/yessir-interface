@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CardapioService } from '../../../cardapio.service';
 import { CardBuscaCardapioService } from '../card-busca-cardapio.service';
-import { Cardapio } from '../../../cardapio';
+import { Cardapio } from '../../../../../shared/model/cardapio';
 
 @Component({
   selector: 'app-modal-pedir',
@@ -10,17 +10,9 @@ import { Cardapio } from '../../../cardapio';
 })
 export class ModalPedirComponent {
 
-  cardapio: Cardapio = {
-    id: 0,
-    nome: '',
-    preco: 0,
-    nomeIcone: "local_dining",
-    tipo: ''
-  };
-
   constructor(public cardBuscaCardapioService: CardBuscaCardapioService) { }
 
-  adicionar() {
+  confirmar() {
     // this.cardBuscaCardapioService.formCardapio.get("quantidade")?.patchValue(7);
     window.console.log('ITEM FINAL', this.cardBuscaCardapioService.formCardapio.value)
   }

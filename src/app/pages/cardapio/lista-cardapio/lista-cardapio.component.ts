@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cardapio } from '../cardapio';
+import { Cardapio } from '../../../shared/model/cardapio';
 import { CardapioService } from '../cardapio.service';
 
 @Component({

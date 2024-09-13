@@ -1,0 +1,18 @@
+.table {
+  width: 100%;
+}
+
+.button-container {
+  padding-top: 16px;
+}
+
+.button + .button {
+  margin-left: 8px;
+}
+
+.icon{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding:0.75rem;
+}
