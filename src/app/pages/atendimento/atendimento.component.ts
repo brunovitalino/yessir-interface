@@ -5,6 +5,7 @@ import { MesaService } from 'src/app/core/service/mesa.service';
 import { Atendimento } from 'src/app/shared/model/atendimento';
 import { PedidoService } from '../pedido/pedido.service';
 import { AtendimentoService } from './atendimento.service';
+import { Pedido } from 'src/app/shared/model/pedido';
 
 @Component({
   selector: 'app-atendimento',
@@ -13,9 +14,9 @@ import { AtendimentoService } from './atendimento.service';
 })
 export class AtendimentoComponent implements OnInit {
 
-  public atendimentos = [];
-  public mesas = [];
-  public pedidos = [];
+  public atendimentos: Atendimento[] = [];
+  public mesas: Mesa[] = [];
+  public pedidos: Pedido[] = [];
 
   constructor(
     private atendimentoService: AtendimentoService,
@@ -41,7 +42,7 @@ export class AtendimentoComponent implements OnInit {
     if (!atendimentos.length) return;
     this.mesaService.load().subscribe(mesas => {
       let mesasIds = atendimentos.map(a => a.mesaId);
-      this.mesas = mesas.filter(m => mesasIds.includes(m.id));
+      this.mesas = mesas.filter(m => mesasIds.some(mesaId => mesaId == m.id));
     });
   }
 
