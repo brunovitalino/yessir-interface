@@ -9,21 +9,21 @@ import { environment } from 'src/environments/environment';
 })
 export class CardapioService {
 
-  // private readonly API = 'http://localhost:8080/cardapio'
   private readonly API_HOST = environment.apiHost;
+  private readonly ENDPOINT = `${this.API_HOST}/cardapios`;
 
   constructor(private http: HttpClient) { }
 
   listar(): Observable<Cardapio[]> {
-    return this.http.get<Cardapio[]>(`${this.API_HOST}/cardapio`);
+    return this.http.get<Cardapio[]>(`${this.ENDPOINT}`);
   }
 
   listarPorNome(varlorDigitado: string): Observable<Cardapio[]> {
     const params = new HttpParams().append('nome', varlorDigitado);
-    return this.http.get<Cardapio[]>(`${this.API_HOST}/cardapio`, { params });
+    return this.http.get<Cardapio[]>(`${this.ENDPOINT}`, { params });
   }
 
   cadastrar(cardapio: Cardapio): Observable<Cardapio> {
-    return this.http.post<Cardapio>(`${this.API_HOST}/cardapio`, cardapio);
+    return this.http.post<Cardapio>(`${this.ENDPOINT}`, cardapio);
   }
 }

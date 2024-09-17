@@ -3,16 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { CardapioComponent } from './pages/cardapio/cardapio.component';
 import { PedidoListComponent } from './pages/pedido/pedido-list/pedido-list.component';
+import { AtendimentoComponent } from './pages/atendimento/atendimento.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'pedidos',
     pathMatch: 'full'
-  },
-  {
-    path: 'pedidos',
-    component: HomeComponent
   },
   {
     path: 'cardapio',
@@ -22,6 +19,14 @@ const routes: Routes = [
     path: 'pedido',
     component: PedidoListComponent
   },
+  {
+    path: 'atendimento',
+    component: AtendimentoComponent
+  },
+  {
+    path: 'atendimento/:mesaId',
+    component: AtendimentoComponent
+  }
 ];
 
 @NgModule({

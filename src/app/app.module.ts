@@ -38,6 +38,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PedidoListComponent } from './pages/pedido/pedido-list/pedido-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { ModalAdicionarComponent } from './shared/modal-adicionar/modal-adicionar.component';
+import { AtendimentoComponent } from './pages/atendimento/atendimento.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ModalAdicionarComponent } from './shared/modal-adicionar/modal-adiciona
     SeletorQuantidadeComponent,
     CrudListComponent,
     PedidoListComponent,
-    ModalAdicionarComponent
+    ModalAdicionarComponent,
+    AtendimentoComponent
   ],
   imports: [
     BrowserModule,

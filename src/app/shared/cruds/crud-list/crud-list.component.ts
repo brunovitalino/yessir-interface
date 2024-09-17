@@ -23,6 +23,8 @@ const PEDIDOS_DATA: Pedido[] = [
 export class CrudListComponent implements OnDestroy {
   @Input() showIconEdit = true;
   @Input() showIconRemove = true;
+  @Input() elementsList: any = [];
+  @Input() elementsDisplayedColumns: string[] = [];
 
   private confirmEvent: EventEmitter<boolean>;
 

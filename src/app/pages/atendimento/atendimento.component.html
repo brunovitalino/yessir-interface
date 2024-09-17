@@ -1,0 +1,25 @@
+<mat-sidenav-container autosize>
+  <mat-sidenav [opened]="true" mode="side">
+    <h1>ATENDIMENTO</h1>
+    <mat-nav-list>
+      <div *ngFor="let mesa of mesas">
+        <a mat-list-item (click)="visualizarPedidoDaMesa(mesa)">
+          <span class="entry">
+            <mat-icon>table_restaurant</mat-icon>
+            <span>{{ mesa.nome }}</span>
+          </span>
+        </a>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <section class="mesas">
+      <app-container>
+        <h2>Pedido</h2>
+        <div class="card-wrapper">
+          <app-crud-list></app-crud-list>
+        </div>
+      </app-container>
+    </section>
+  </mat-sidenav-content>
+</mat-sidenav-container>
