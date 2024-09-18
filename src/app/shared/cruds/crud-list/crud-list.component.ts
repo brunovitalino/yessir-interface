@@ -1,11 +1,9 @@
-import { Component, EventEmitter, Input, OnDestroy, ViewChild } from '@angular/core';
-import { MatTable } from '@angular/material/table';
-import { Pedido } from '../../model/pedido';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { ModalPedirComponent } from 'src/app/pages/cardapio/lista-cardapio/card-busca-cardapio/modal-pedir/modal-pedir.component';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTable } from '@angular/material/table';
 import { ModalAdicionarComponent } from '../../modal-adicionar/modal-adicionar.component';
 import { ModalAdicionarService } from '../../modal/adicionar/modal-adicionar.service';
+import { Pedido } from '../../model/pedido';
 
 const PEDIDOS_DATA: Pedido[] = [
   {id: 1, nome: 'Pizza', preco: 40,  nomeIcone: 'dinner',  tipo: 'COMIDA',  quantidade: 1 },
@@ -20,23 +18,41 @@ const PEDIDOS_DATA: Pedido[] = [
   templateUrl: './crud-list.component.html',
   styleUrls: ['./crud-list.component.scss']
 })
-export class CrudListComponent implements OnDestroy {
-  @Input() showIconEdit = true;
-  @Input() showIconRemove = true;
-  @Input() elementsList: any = [];
-  @Input() elementsDisplayedColumns: string[] = [];
+export class CrudListComponent implements OnInit, OnDestroy {
+  @ViewChild(MatTable) table: MatTable<Pedido>;
+  @Input() displayedColumnsInput: string[];
+  @Input() dataSourceInput: any[] = [];
+  @Input() showEditRemoveIcons = true;
 
   private confirmEvent: EventEmitter<boolean>;
-
+  public displayedColumns: string[];
+  public dataSource: any[] = [];
+  
   constructor(
     public dialog: MatDialog,
     public modalAdicionarService: ModalAdicionarService
   ) { }
+  
+  ngOnInit(): void {
+    this.displayedColumns = this.getDisplayedColumns();
+    this.dataSource = this.getDataSource();
+  }
 
-  displayedColumns: string[] = ['id', 'nome', 'preco', 'quantidade', 'total', 'remove'];
-  dataSource = [...PEDIDOS_DATA];
+  getDisplayedColumns() {
+    return !this.isShowEditRemoveIcons() ? [...this.displayedColumnsInput] : [...this.displayedColumnsInput, 'editRemoveIcons'];
+  }
 
-  @ViewChild(MatTable) table: MatTable<Pedido>;
+  isUseSharpCharacter(columnTitle: string) {
+    return columnTitle == 'id'
+  }
+
+  getDataSource() {
+    return [...this.dataSourceInput];
+  }
+
+  isShowEditRemoveIcons() {
+    return this.showEditRemoveIcons;
+  }
 
   remove(element: any) {
     var index = this.dataSource.indexOf(element);
