@@ -4,7 +4,11 @@
       <app-container>
         <h2>Pedido</h2>
         <div class="card-wrapper">
-          <app-crud-list [displayedColumnsInput]="colunas" [dataSourceInput]="linhas" [showEditRemoveIcons]="false"></app-crud-list>
+          <app-crud-list
+            [displayedColumnsInput]="colunas" [dataSourceInput]="linhas" [showEditRemoveIcons]="true"
+            (updateEvent)="updateDataSourceElement($event)" (removeEvent)="removeDataSourceElement($event)"
+            (encerrarContaEvent)="encerrarConta()"
+          ></app-crud-list>
         </div>
       </app-container>
     </section>

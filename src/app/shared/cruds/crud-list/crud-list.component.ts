@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { ModalAdicionarComponent } from '../../modal-adicionar/modal-adicionar.component';
@@ -17,10 +17,14 @@ export class CrudListComponent implements OnInit, OnDestroy {
   @Input() displayedColumnsInput: string[];
   @Input() dataSourceInput: Observable<any[]>;
   @Input() showEditRemoveIcons = true;
+  @Output() public updateEvent = new EventEmitter<any>();
+  @Output() public removeEvent = new EventEmitter<any>();
+  @Output() public encerrarContaEvent = new EventEmitter();
 
   private confirmEvent: EventEmitter<boolean>;
-  public displayedColumns: string[];
-  public dataSource: any[] = [];
+  displayedColumns: string[];
+  dataSource: any[] = [];
+  isContaEncerada = false;
   
   constructor(
     public dialog: MatDialog,
@@ -48,18 +52,8 @@ export class CrudListComponent implements OnInit, OnDestroy {
     });
   }
 
-  encerrarConta(): void {
-    this.changeDetectorRef.detectChanges();
-  }
-
   isShowEditRemoveIcons(): boolean {
     return this.showEditRemoveIcons;
-  }
-
-  remove(element: any): void {
-    var index = this.dataSource.indexOf(element);
-    this.dataSource.splice(index, 1);
-    this.table.renderRows();
   }
 
   openEditDialog(element): void {
@@ -76,12 +70,25 @@ export class CrudListComponent implements OnInit, OnDestroy {
           if (element.total && element.preco && element.quantidade) {
             element.total = element.preco * element.quantidade;
           }
+          this.updateEvent.emit(element);
           return element;
         }
         return e;
       });
       this.changeDetectorRef.detectChanges();
     });
+  }
+
+  remove(element: any): void {
+    this.removeEvent.emit(element);
+    var index = this.dataSource.indexOf(element);
+    this.dataSource.splice(index, 1);
+    this.table.renderRows();
+  }
+
+  encerrarConta(): void {
+    this.encerrarContaEvent.emit();
+    this.changeDetectorRef.detectChanges();
   }
 
   ngOnDestroy(): void {

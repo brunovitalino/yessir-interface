@@ -57,4 +57,16 @@ export class PedidoListComponent implements OnInit {
     });
   }
 
+  updateDataSourceElement(element: any): void {
+    console.log('update event', element);
+  }
+
+  removeDataSourceElement(element: any): void {
+    console.log('remove event', element);
+  }
+
+  encerrarConta(): void {
+    console.log('conta encerrada');
+  }
+
 }
