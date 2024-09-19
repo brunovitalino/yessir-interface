@@ -1,6 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Pedido } from '../../model/pedido';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +14,8 @@ export class ModalAdicionarService {
       id: new FormControl(0),
       nome: new FormControl('prato padrão'),
       preco: new FormControl(0),
-      nomeIcone: new FormControl('local_dining'),
-      tipo: new FormControl('COMIDA'),
-      quantidade: new FormControl(0)
+      quantidade: new FormControl(0),
+      total: new FormControl(0)
     });
     // var pedidoFormControlers = Object.keys(this.pedido).map(key => [key, new FormControl(this.pedido[key])]);
     // this.formGroup = new FormGroup(Object.fromEntries(pedidoFormControlers));

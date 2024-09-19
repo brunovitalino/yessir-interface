@@ -1,8 +1,9 @@
+import { Atendimento } from "./atendimento";
+import { Cardapio } from "./cardapio";
+
 export interface Pedido {
   id: number;
-  nome: string;
-  preco: number;
-  nomeIcone?: string;
-  tipo: string;
-  quantidade?: number;
+  cardapio: Cardapio;
+  quantidade: number;
+  atendimento: Atendimento;
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { map, Observable, of } from 'rxjs';
 import { Pedido } from 'src/app/shared/model/pedido';
 import { PedidoService } from '../pedido.service';
 
@@ -8,21 +9,18 @@ import { PedidoService } from '../pedido.service';
   styleUrls: ['./pedido-list.component.scss']
 })
 export class PedidoListComponent implements OnInit {
-
   pageNumber: number = 1;
   pageSize: number = 10;
   pedidos: Pedido[] = [];
-  colunas: any = [];
-  linhas: any = [];
+  colunas: string[] = [];
+  linhas: Observable<any[]> = of([]);
 
-  constructor(
-    private pedidoService: PedidoService
-  ) { }
+  constructor(private pedidoService: PedidoService) { }
 
   ngOnInit(): void {
-    this.loadPageable();
-    this.loadColunas();
-    this.loadLinhas();
+    //this.loadPageable();
+    this.colunas = this.getColunas();
+    this.linhas = this.getLinhas();
   }
 
   loadPageable(): void {
@@ -33,11 +31,22 @@ export class PedidoListComponent implements OnInit {
     });
   }
 
-  loadColunas(): void {
-    this.colunas = [
-      { header: 'CPF' },
-      { header: 'Nome' }
-    ];
+  getColunas(): string[] {
+    return [ 'id', 'nome', 'preco', 'quantidade', 'total' ];
+  }
+
+  getLinhas(): Observable<any[]> {
+    return this.pedidoService.loadByAtendimentoId(2).pipe(
+      map((pedido: Pedido[]) => pedido.map(p => {
+        return {
+          id: p.id,
+          nome: p.cardapio.nome,
+          preco: p.cardapio.preco,
+          quantidade: p.quantidade,
+          total: p.cardapio.preco * p.quantidade
+        }
+      }))
+    );
   }
 
   loadLinhas(): void {
@@ -45,18 +54,7 @@ export class PedidoListComponent implements OnInit {
       this.pageNumber = resp.number;
       this.pageSize = resp.size;
       this.pedidos = resp.content as Pedido[];
-      this.setLinhas(this.pedidos);
     });
-  }
-
-  setLinhas(pedidos: Pedido[]): void {
-    /** pedidos.forEach(e => {
-      this.linhas.push([
-        { field: e.id },
-        { field: e.cpf },
-        { field: e.nome }
-      ]);        
-    }); */
   }
 
   deleteLinha(id: number): void {

@@ -28,7 +28,6 @@ export class PedidoService {
   }
   
   public loadByAtendimentoId(atendimentoId: number): Observable<Pedido[]> {
-    console.log('entroooou?? ', `${this.ENDPOINT}?atendimentoId=${atendimentoId}`);
     return this.http.get<Pedido[]>(`${this.ENDPOINT}?atendimentoId=${atendimentoId}`);
   }
   
