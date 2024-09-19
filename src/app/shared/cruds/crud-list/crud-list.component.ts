@@ -6,14 +6,6 @@ import { ModalAdicionarService } from '../../modal/adicionar/modal-adicionar.ser
 import { Pedido } from '../../model/pedido';
 import { Observable } from 'rxjs';
 
-/** const PEDIDOS_DATA: Pedido[] = [
-  {id: 1, nome: 'Pizza', preco: 40,  nomeIcone: 'dinner',  tipo: 'COMIDA',  quantidade: 1 },
-  {id: 2, nome: 'Coxinha', preco: 7,  nomeIcone: 'dinner',  tipo: 'COMIDA',  quantidade: 3 },
-  {id: 3, nome: 'Arroz', preco: 8,  nomeIcone: 'dinner',  tipo: 'COMIDA',  quantidade: 1 },
-  {id: 4, nome: 'Batata frita', preco: 15,  nomeIcone: 'dinner',  tipo: 'COMIDA',  quantidade: 2 },
-  {id: 5, nome: 'Cerveja', preco: 13,  nomeIcone: 'dinner',  tipo: 'BEBIDA',  quantidade: 5 },
-];*/
-
 @Component({
   selector: 'app-crud-list',
   templateUrl: './crud-list.component.html',
@@ -37,40 +29,40 @@ export class CrudListComponent implements OnInit, OnDestroy {
   ) { }
   
   ngOnInit(): void {
-    this.displayedColumns = this.getDisplayedColumns();
+    this.loadDisplayedColumns();
     this.loadDataSource();
   }
 
-  getDisplayedColumns() {
-    return !this.isShowEditRemoveIcons() ? [...this.displayedColumnsInput] : [...this.displayedColumnsInput, 'editRemoveIcons'];
+  loadDisplayedColumns(): void {
+    this.displayedColumns = !this.isShowEditRemoveIcons() ? [...this.displayedColumnsInput] : [...this.displayedColumnsInput, 'editRemoveIcons'];
   }
 
-  isUseSharpCharacter(columnTitle: string) {
+  isUseSharpCharacter(columnTitle: string): boolean {
     return columnTitle == 'id'
   }
 
-  loadDataSource() {
+  loadDataSource(): void {
     this.dataSourceInput.subscribe((data) => {
       this.dataSource = data;
       this.changeDetectorRef.detectChanges();
     });
   }
 
-  encerrarConta() {
+  encerrarConta(): void {
     this.changeDetectorRef.detectChanges();
   }
 
-  isShowEditRemoveIcons() {
+  isShowEditRemoveIcons(): boolean {
     return this.showEditRemoveIcons;
   }
 
-  remove(element: any) {
+  remove(element: any): void {
     var index = this.dataSource.indexOf(element);
     this.dataSource.splice(index, 1);
     this.table.renderRows();
   }
 
-  openEditDialog(element) {
+  openEditDialog(element): void {
     this.modalAdicionarService.formGroup.patchValue(element);
     this.dialog.open(ModalAdicionarComponent, {
       width: '50%',

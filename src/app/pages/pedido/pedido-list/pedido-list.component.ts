@@ -57,16 +57,4 @@ export class PedidoListComponent implements OnInit {
     });
   }
 
-  deleteLinha(id: number): void {
-    this.pedidoService.delete(id).subscribe(res => {
-      this.linhas = this.linhas.filter(e => e[0]['field'] != id);
-    }, err => {
-      if (err.error && err.error.exception) {
-        console.log('ERRO', err.error.exception, err.error.cause);
-      } else {
-        console.log('ERRO', err);
-      }
-    });
-  }
-
 }
