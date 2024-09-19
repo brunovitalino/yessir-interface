@@ -19,8 +19,8 @@ export class PedidoListComponent implements OnInit {
 
   ngOnInit(): void {
     //this.loadPageable();
-    this.colunas = this.getColunas();
-    this.linhas = this.getLinhas();
+    this.loadColunas();
+    this.loadLinhas();
   }
 
   loadPageable(): void {
@@ -31,12 +31,12 @@ export class PedidoListComponent implements OnInit {
     });
   }
 
-  getColunas(): string[] {
-    return [ 'id', 'nome', 'preco', 'quantidade', 'total' ];
+  loadColunas(): void {
+    this.colunas = [ 'id', 'nome', 'preco', 'quantidade', 'total' ];
   }
 
-  getLinhas(): Observable<any[]> {
-    return this.pedidoService.loadByAtendimentoId(2).pipe(
+  loadLinhas(): void {
+    this.linhas = this.pedidoService.loadByAtendimentoId(2).pipe(
       map((pedido: Pedido[]) => pedido.map(p => {
         return {
           id: p.id,
@@ -49,7 +49,7 @@ export class PedidoListComponent implements OnInit {
     );
   }
 
-  loadLinhas(): void {
+  loadLinhasOld(): void {
     this.pedidoService.findAll().subscribe(resp => {
       this.pageNumber = resp.number;
       this.pageSize = resp.size;

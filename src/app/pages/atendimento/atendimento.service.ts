@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { first, map, Observable, of } from 'rxjs';
 import { Atendimento } from 'src/app/shared/model/atendimento';
 import { environment } from 'src/environments/environment';
 
@@ -23,7 +23,14 @@ export class AtendimentoService {
     return this.http.get<Atendimento[]>(`${this.ENDPOINT}`, {headers});
   }
   
-  public loadOneByMesaId(mesaId: number): Observable<Atendimento[]> {
+  public loadOneByMesaIdOld(mesaId: number): Observable<Atendimento[]> {
     return this.http.get<Atendimento[]>(`${this.ENDPOINT}?mesaId=${mesaId}`);
+  }
+  
+  public loadOneByMesaId(mesaId: number): Observable<Atendimento> {
+    return this.http.get<Atendimento[]>(`${this.ENDPOINT}?mesaId=${mesaId}`)
+    .pipe(map(atendimentos => atendimentos.find(a => a.mesaId == mesaId)));
+    //.pipe(map(atendimentos => atendimentos.splice(0, 1)[0]));
+    // No back, levar em consideracao mesaId==xx && status='ATIVO'
   }
 }

@@ -13,11 +13,13 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <section class="mesas">
+    <section *ngIf="mesaId" class="mesas">
       <app-container>
         <h2>Pedido</h2>
         <div class="card-wrapper">
-          <app-crud-list></app-crud-list>
+          <app-crud-list
+          [displayedColumnsInput]="tableColsNames" [dataSourceSubscription]="pedidosSubscription"
+          ></app-crud-list>
         </div>
       </app-container>
     </section>

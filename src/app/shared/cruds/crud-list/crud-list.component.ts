@@ -4,7 +4,7 @@ import { MatTable } from '@angular/material/table';
 import { ModalAdicionarComponent } from '../../modal-adicionar/modal-adicionar.component';
 import { ModalAdicionarService } from '../../modal/adicionar/modal-adicionar.service';
 import { Pedido } from '../../model/pedido';
-import { Observable } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-crud-list',
@@ -14,23 +14,27 @@ import { Observable } from 'rxjs';
 })
 export class CrudListComponent implements OnInit, OnDestroy {
   @ViewChild(MatTable) table: MatTable<Pedido>;
-  @Input() displayedColumnsInput: string[];
-  @Input() dataSourceInput: Observable<any[]>;
+  @Input() displayedColumnsInput: string[] = [];
+  @Input() dataSourceInput: Observable<any[]> = of([]);
+  @Input() dataSourceSubscription: Subject<any> = new Subject();
+  @Input() linhasInput: string[] = [];
   @Input() showEditRemoveIcons = true;
-  @Output() public updateEvent = new EventEmitter<any>();
-  @Output() public removeEvent = new EventEmitter<any>();
-  @Output() public encerrarContaEvent = new EventEmitter();
+  @Input() isContaEncerrada = false;
+  @Output() updateEvent = new EventEmitter<any>();
+  @Output() removeEvent = new EventEmitter<any>();
+  @Output() encerrarContaEvent = new EventEmitter();
 
   private confirmEvent: EventEmitter<boolean>;
   displayedColumns: string[];
   dataSource: any[] = [];
-  isContaEncerada = false;
+
   
   constructor(
     public dialog: MatDialog,
     public modalAdicionarService: ModalAdicionarService,
     private changeDetectorRef: ChangeDetectorRef
-  ) { }
+  ) {
+  }
   
   ngOnInit(): void {
     this.loadDisplayedColumns();
@@ -46,9 +50,16 @@ export class CrudListComponent implements OnInit, OnDestroy {
   }
 
   loadDataSource(): void {
-    this.dataSourceInput.subscribe((data) => {
+    /*this.dataSourceInput.subscribe((data) => {
       this.dataSource = data;
       this.changeDetectorRef.detectChanges();
+    });*/
+
+    console.log('executado?');
+    this.dataSourceSubscription.subscribe(data => {
+      this.dataSource = data;
+      this.changeDetectorRef.detectChanges();
+      console.log('executado de novo?');
     });
   }
 
@@ -79,6 +90,10 @@ export class CrudListComponent implements OnInit, OnDestroy {
     });
   }
 
+  refreshTable() {
+    this.changeDetectorRef.detectChanges();
+  }
+
   remove(element: any): void {
     this.removeEvent.emit(element);
     var index = this.dataSource.indexOf(element);
@@ -87,6 +102,7 @@ export class CrudListComponent implements OnInit, OnDestroy {
   }
 
   encerrarConta(): void {
+    this.isContaEncerrada = true;
     this.encerrarContaEvent.emit();
     this.changeDetectorRef.detectChanges();
   }
@@ -94,6 +110,9 @@ export class CrudListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.confirmEvent) {
       this.confirmEvent.unsubscribe();
+    }
+    if (this.dataSourceSubscription) {
+      this.dataSourceSubscription.unsubscribe();
     }
   }
 

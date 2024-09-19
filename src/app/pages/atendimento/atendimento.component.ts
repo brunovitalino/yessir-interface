@@ -1,22 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Mesa } from 'src/app/core/mesa';
 import { MesaService } from 'src/app/core/service/mesa.service';
 import { Atendimento } from 'src/app/shared/model/atendimento';
 import { PedidoService } from '../pedido/pedido.service';
 import { AtendimentoService } from './atendimento.service';
 import { Pedido } from 'src/app/shared/model/pedido';
+import { map, Observable, of, skipWhile, Subject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-atendimento',
   templateUrl: './atendimento.component.html',
   styleUrls: ['./atendimento.component.scss']
 })
-export class AtendimentoComponent implements OnInit {
+export class AtendimentoComponent {
 
   public atendimentos: Atendimento[] = [];
   public mesas: Mesa[] = [];
-  public pedidos: Pedido[] = [];
+  public tableColsNames: string[] = [];
+  public pedidosSubscription: Subject<any> = new Subject();
+  public mesaId: number;
 
   constructor(
     private atendimentoService: AtendimentoService,
@@ -24,21 +27,23 @@ export class AtendimentoComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private pedidoService: PedidoService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    this.loadAtendimentosAndMesas();
-    this.loadPedido();
+    this.loadMesas();
+    this.loadTableColsNames();
+    this.loadDinamicTableDataSource();
   }
 
   loadAtendimentosAndMesas(): void {
     this.atendimentoService.loadAll().subscribe(atendimentos => {
       this.atendimentos = atendimentos;
-      this.loadMesas(atendimentos);
+      this.loadMesas();
     });
   }
 
-  loadMesas(atendimentos: Atendimento[]): void {
+  loadMesasOld(atendimentos: Atendimento[]): void {
     if (!atendimentos.length) return;
     this.mesaService.load().subscribe(mesas => {
       let mesasIds = atendimentos.map(a => a.mesaId);
@@ -46,25 +51,57 @@ export class AtendimentoComponent implements OnInit {
     });
   }
 
-  visualizarPedidoDaMesa(mesa: Mesa) {
-    this.router.navigate( [`atendimento/${mesa.id}`] );
+  loadMesas(): void {
+    this.mesaService.load().pipe(switchMap(mesas =>
+      this.atendimentoService.loadAll().pipe(map(atendimentos => {
+        let mesasIds = atendimentos.map(a => a.mesaId);
+        return mesas.filter(m => mesasIds.some(mesaId => mesaId == m.id));
+      }))
+    )).subscribe(mesas => {
+      this.mesas = mesas;
+    })
   }
 
-  loadPedido() {
-    let mesaId = this.route.snapshot.params['mesaId'];
+  visualizarPedidoDaMesa(mesa: Mesa) {
+    this.router.navigate([`atendimento/${mesa.id}`]);
+  }
+
+  loadTableColsNames(): void {
+    this.tableColsNames = ['id', 'nome', 'preco', 'quantidade', 'total'];
+  }
+
+  
+  loadDinamicTableDataSource(): void {
+    //this.route.snapshot.params['mesaId'];
+    this.route.params.subscribe(params => this.loadTableDataSource(params['mesaId']));
+  }
+
+  loadTableDataSource(mesaId: number): void {
     if (!mesaId) return;
-    console.log('MESA ID', mesaId);
-    this.atendimentoService.loadOneByMesaId(mesaId).subscribe(atendimentos => {
-      console.log('ATENDIMENTO', atendimentos);
-      let atendimento = atendimentos.find(x=>x!==undefined);
-      if (!atendimento) return;
-      this.pedidoService.loadByAtendimentoId(atendimento.id).subscribe(pedidos => {
-        console.log('PEDIDOS', pedidos);
-        this.pedidos = pedidos
-      });
-    });
+    this.mesaId = mesaId;
+    this.atendimentoService.loadOneByMesaId(mesaId).pipe(switchMap(atendimento =>
+      !atendimento ? of([]) : this.pedidoService.loadByAtendimentoId(atendimento.id)
+    )).pipe(map(pedidos =>
+      pedidos.map(p => ({
+          id: p.id,
+          nome: p.cardapio.nome,
+          preco: p.cardapio.preco,
+          quantidade: p.quantidade,
+          total: p.cardapio.preco * p.quantidade
+      }))
+    )).subscribe(pedidos => this.pedidosSubscription.next(pedidos));
+  }
 
+  updateDataSourceElement(element: any): void {
+    console.log('update event', element);
+  }
 
+  removeDataSourceElement(element: any): void {
+    console.log('remove event', element);
+  }
+
+  encerrarConta(): void {
+    console.log('conta encerrada');
   }
 
 }
