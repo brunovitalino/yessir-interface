@@ -5,7 +5,7 @@
         <h2>Pedido</h2>
         <div class="card-wrapper">
           <app-crud-list
-            [displayedColumnsInput]="colunas" [dataSourceInput]="linhas" [showEditRemoveIcons]="false"
+            [displayedColumnsInput]="tableColsNames" [dataSourceSubscription]="pedidosSubscription" [showEditRemoveIcons]="false"
             (updateEvent)="updateDataSourceElement($event)" (removeEvent)="removeDataSourceElement($event)"
             [isContaEncerrada]="false" (encerrarContaEvent)="encerrarConta()"
           ></app-crud-list>

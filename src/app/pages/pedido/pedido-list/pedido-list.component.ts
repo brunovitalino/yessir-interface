@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable, of, Subject } from 'rxjs';
 import { Pedido } from 'src/app/shared/model/pedido';
 import { PedidoService } from '../pedido.service';
 
@@ -11,50 +11,42 @@ import { PedidoService } from '../pedido.service';
 export class PedidoListComponent implements OnInit {
   pageNumber: number = 1;
   pageSize: number = 10;
-  pedidos: Pedido[] = [];
-  colunas: string[] = [];
+  tableColsNames: string[] = [];
+  pedidosSubscription: Subject<any> = new Subject();
   linhas: Observable<any[]> = of([]);
 
   constructor(private pedidoService: PedidoService) { }
 
   ngOnInit(): void {
     //this.loadPageable();
-    this.loadColunas();
-    this.loadLinhas();
+    this.loadTableColsNames();
+    this.loadTableDataSource();
   }
 
   loadPageable(): void {
     this.pedidoService.findAll().subscribe(resp => {
       this.pageNumber = resp.number;
       this.pageSize = resp.size;
-      this.pedidos = resp.content as Pedido[];
+      //this.pedidos = resp.content as Pedido[];
     });
   }
 
-  loadColunas(): void {
-    this.colunas = [ 'id', 'nome', 'preco', 'quantidade', 'total' ];
+  loadTableColsNames(): void {
+    this.tableColsNames = [ 'id', 'nome', 'preco', 'quantidade', 'total' ];
   }
 
-  loadLinhas(): void {
-    this.linhas = this.pedidoService.loadByAtendimentoId(2).pipe(
-      map((pedido: Pedido[]) => pedido.map(p => {
-        return {
+  loadTableDataSource(): void {
+    this.pedidoService.loadByAtendimentoId(2).pipe(map(pedidos =>
+      pedidos.map(p => (
+        {
           id: p.id,
           nome: p.cardapio.nome,
           preco: p.cardapio.preco,
           quantidade: p.quantidade,
           total: p.cardapio.preco * p.quantidade
         }
-      }))
-    );
-  }
-
-  loadLinhasOld(): void {
-    this.pedidoService.findAll().subscribe(resp => {
-      this.pageNumber = resp.number;
-      this.pageSize = resp.size;
-      this.pedidos = resp.content as Pedido[];
-    });
+      )))
+    ).subscribe(pedidos => this.pedidosSubscription.next(pedidos));
   }
 
   updateDataSourceElement(element: any): void {

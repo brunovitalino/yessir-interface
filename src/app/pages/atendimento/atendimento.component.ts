@@ -69,7 +69,6 @@ export class AtendimentoComponent {
   loadTableColsNames(): void {
     this.tableColsNames = ['id', 'nome', 'preco', 'quantidade', 'total'];
   }
-
   
   loadDinamicTableDataSource(): void {
     //this.route.snapshot.params['mesaId'];
@@ -82,13 +81,15 @@ export class AtendimentoComponent {
     this.atendimentoService.loadOneByMesaId(mesaId).pipe(switchMap(atendimento =>
       !atendimento ? of([]) : this.pedidoService.loadByAtendimentoId(atendimento.id)
     )).pipe(map(pedidos =>
-      pedidos.map(p => ({
+      pedidos.map(p => (
+        {
           id: p.id,
           nome: p.cardapio.nome,
           preco: p.cardapio.preco,
           quantidade: p.quantidade,
           total: p.cardapio.preco * p.quantidade
-      }))
+        }
+      ))
     )).subscribe(pedidos => this.pedidosSubscription.next(pedidos));
   }
 
