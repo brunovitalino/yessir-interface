@@ -1,11 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Mesa } from 'src/app/core/mesa';
+import { Mesa } from 'src/app/shared/model/mesa';
 import { MesaService } from 'src/app/core/service/mesa.service';
 import { Atendimento } from 'src/app/shared/model/atendimento';
 import { PedidoService } from '../pedido/pedido.service';
 import { AtendimentoService } from './atendimento.service';
-import { Pedido } from 'src/app/shared/model/pedido';
 import { map, Observable, of, skipWhile, Subject, switchMap } from 'rxjs';
 
 @Component({

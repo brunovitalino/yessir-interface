@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
 import { CardapioComponent } from './pages/cardapio/cardapio.component';
 import { PedidoListComponent } from './pages/pedido/pedido-list/pedido-list.component';
 import { AtendimentoComponent } from './pages/atendimento/atendimento.component';
 
 const routes: Routes = [
+  {
+    path: 'auth',
+    loadChildren: () => import('./pages/autenticacao/autenticacao.module').then(m => m.AutenticacaoModule),
+  },
   {
     path: '',
     redirectTo: 'pedidos',
