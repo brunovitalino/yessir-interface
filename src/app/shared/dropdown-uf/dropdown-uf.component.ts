@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
 import { UnidadeFederativa } from '../model/type';
-import { UnidadeFederativaService } from 'src/app/core/unidade-federativa.service';
+import { UnidadeFederativaService } from 'src/app/core/service/unidade-federativa.service';
 
 @Component({
   selector: 'app-dropdown-uf',
@@ -20,10 +20,7 @@ export class DropdownUfComponent implements OnInit {
   filteredOptions$?: Observable<UnidadeFederativa[]>;
 
 
-  constructor(
-    private unidadeFederativaService: UnidadeFederativaService) {
-
-  }
+  constructor(private unidadeFederativaService: UnidadeFederativaService) { }
 
   ngOnInit(): void {
     this.unidadeFederativaService.listar()

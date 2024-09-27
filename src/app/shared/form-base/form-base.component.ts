@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UnidadeFederativa } from '../model/type';
 import { FormValidations } from '../form-validations';
-import { FormularioService } from 'src/app/core/formulario.service';
+import { FormularioService } from 'src/app/core/service/formulario.service';
 
 @Component({
   selector: 'app-form-base',
