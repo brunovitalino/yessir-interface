@@ -32,7 +32,6 @@ import { CardapioComponent } from './pages/cardapio/cardapio.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SeletorQuantidadeComponent } from './shared/seletor-quantidade/seletor-quantidade.component';
 import { CrudListComponent } from './shared/cruds/crud-list/crud-list.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PedidoListComponent } from './pages/pedido/pedido-list/pedido-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { ModalAdicionarComponent } from './shared/modal-adicionar/modal-adicionar.component';
@@ -78,7 +77,6 @@ import { SharedModule } from './shared/shared.module';
     MatListModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FontAwesomeModule,
     MatTableModule,
     SharedModule
   ],

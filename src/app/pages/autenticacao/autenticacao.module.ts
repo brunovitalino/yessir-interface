@@ -5,12 +5,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AutenticacaoRoutingModule } from './autenticacao-routing.module';
 import { MaterialModule } from 'src/app/core/material/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { LoginComponent } from './login/login.component';
 
 
 
 @NgModule({
   declarations: [
-    CadastroComponent
+    CadastroComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AutenticacaoRoutingModule
   ],
   exports: [
-    CadastroComponent
+    CadastroComponent,
+    LoginComponent
   ]
 })
 export class AutenticacaoModule { }
