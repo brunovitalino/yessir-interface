@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map, Observable, of, Subject } from 'rxjs';
 import { Pedido } from 'src/app/shared/model/pedido';
-import { PedidoService } from '../pedido.service';
+import { PedidoOld2Service } from '../pedido-old2.service';
 
 @Component({
   selector: 'app-pedido-list',
@@ -15,7 +15,7 @@ export class PedidoListComponent implements OnInit {
   pedidosSubscription: Subject<any> = new Subject();
   linhas: Observable<any[]> = of([]);
 
-  constructor(private pedidoService: PedidoService) { }
+  constructor(private pedidoService: PedidoOld2Service) { }
 
   ngOnInit(): void {
     //this.loadPageable();

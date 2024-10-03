@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Mesa } from 'src/app/shared/model/mesa';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, of, Subject, switchMap } from 'rxjs';
+import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { MesaService } from 'src/app/core/service/mesa.service';
 import { Atendimento } from 'src/app/shared/model/atendimento';
-import { PedidoService } from '../pedido/pedido.service';
+import { Mesa } from 'src/app/shared/model/mesa';
+import { PedidoOld2Service } from '../pedido/pedido-old2.service';
 import { AtendimentoServiceOld } from './atendimento_OLD.service';
-import { AtendimentoService } from 'src/app/core/service/atendimento.service';
-import { map, Observable, of, skipWhile, Subject, switchMap, tap } from 'rxjs';
+import { PedidoService } from 'src/app/core/service/pedidos.service';
 
 @Component({
   selector: 'app-atendimento',
@@ -27,6 +28,7 @@ export class AtendimentoComponent {
     private mesaService: MesaService,
     private router: Router,
     private route: ActivatedRoute,
+    private pedidoOld2Service: PedidoOld2Service,
     private pedidoService: PedidoService
   ) {
   }
@@ -72,7 +74,7 @@ export class AtendimentoComponent {
     if (!mesaId) return;
     this.mesaId = mesaId;
     this.atendimentoService.findTheLatestbyMesaId(mesaId).pipe(switchMap(atendimento =>
-      !atendimento ? of() : this.pedidoService.loadByAtendimentoId(atendimento.id)
+      !atendimento ? of() : this.pedidoService.findTheLatestbyAtendimentoId(atendimento.id)
     )).pipe(map(pedidos =>
       pedidos.map(p => (
         {
