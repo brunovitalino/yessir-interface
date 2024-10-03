@@ -1,12 +1,22 @@
 <header class="app-header">
   <mat-toolbar>
     <span class="spacer"></span>
-    <button routerLink="/cardapio" mat-button>Cardápio</button>
-    <button routerLink="/pedido" mat-button>Pedido</button>
-    <button routerLink="/atendimento" mat-button>Atendimento</button>
-    <button mat-button>Sobre</button>
-    <button routerLink="/auth/cadastro" mat-raised-button color="primary">CADASTRE-SE</button>
-    <button routerLink="/auth/login" mat-stroked-button>LOGIN</button>
+    <div class="links toolbar">
+      <button routerLink="/cardapio" mat-button>Cardápio</button>
+      <button routerLink="/pedido" mat-button>Pedido</button>
+      <button routerLink="/atendimento" mat-button>Atendimento</button>
+      <button *ngIf="false" mat-button>Sobre</button>
+      <ng-container *ngIf="user$ | async as PessoaUsuaria, else login">
+        <a>
+          <img src="assets/icones/user.png" alt="Ícone do usuário">
+        </a>
+        <button mat-stroked-button (click)="logout()">SAIR</button>
+      </ng-container>
+      <ng-template #login>
+        <button *ngIf="false" routerLink="/auth/cadastro" mat-raised-button color="primary">CADASTRE-SE</button>
+        <button routerLink="/auth/login" mat-stroked-button>LOGIN</button>
+      </ng-template>
+    </div>
   </mat-toolbar>
 </header>
 

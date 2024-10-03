@@ -6,8 +6,6 @@ export const authGuard = () => {
   const userService = inject(UserService);
   const router = inject(Router);
 
-  console.log('meliante logado?', userService.estaLogado());
-
   if (userService.estaLogado()) {
     return true;
   } else {
