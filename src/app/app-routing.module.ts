@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CardapioComponent } from './pages/cardapio/cardapio.component';
 import { PedidoListComponent } from './pages/pedido/pedido-list/pedido-list.component';
 import { AtendimentoComponent } from './pages/atendimento/atendimento.component';
+import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -20,7 +21,8 @@ const routes: Routes = [
   },
   {
     path: 'pedido',
-    component: PedidoListComponent
+    component: PedidoListComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'atendimento',

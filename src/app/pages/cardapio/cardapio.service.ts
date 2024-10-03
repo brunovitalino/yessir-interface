@@ -28,9 +28,9 @@ export class CardapioService {
     return this.httpClient.get<PageResponse>(this.ENDPOINT, {headers});
   }
 
-  listar(): Observable<Cardapio[]> {
+  /*listar(): Observable<Cardapio[]> {
     return this.httpClient.get<Cardapio[]>(`${this.ENDPOINT}`);
-  }
+  }*/
 
   listarPorNome(varlorDigitado: string): Observable<Cardapio[]> {
     const params = new HttpParams().append('nome', varlorDigitado);

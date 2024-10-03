@@ -14,8 +14,11 @@ export class ListaCardapioComponent implements OnInit {
   constructor(private cardapioService: CardapioService) { }
 
   ngOnInit(): void {
-    this.cardapioService.findAllContent().subscribe(cardapioList => {
-      this.listaCardapio = cardapioList
+    this.cardapioService.findAllContent().subscribe({
+      next: cardapioList => {
+        this.listaCardapio = cardapioList
+      },
+      error: err => console.log('Não foi possível listar os itens de cardapio', err)
     })
   }
 
