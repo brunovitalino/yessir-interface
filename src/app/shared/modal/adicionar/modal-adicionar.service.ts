@@ -10,6 +10,12 @@ export class ModalAdicionarService {
   formGroup: FormGroup;
 
   constructor() {
+    this.initFormGroup();
+    // var pedidoFormControlers = Object.keys(this.pedido).map(key => [key, new FormControl(this.pedido[key])]);
+    // this.formGroup = new FormGroup(Object.fromEntries(pedidoFormControlers));
+  }
+
+  initFormGroup(): void {
     this.formGroup = new FormGroup({
       id: new FormControl(0),
       nome: new FormControl('prato padrão'),
@@ -17,8 +23,6 @@ export class ModalAdicionarService {
       quantidade: new FormControl(0),
       total: new FormControl(0)
     });
-    // var pedidoFormControlers = Object.keys(this.pedido).map(key => [key, new FormControl(this.pedido[key])]);
-    // this.formGroup = new FormGroup(Object.fromEntries(pedidoFormControlers));
   }
 
   obterFormControl(formControlName: string): FormControl {

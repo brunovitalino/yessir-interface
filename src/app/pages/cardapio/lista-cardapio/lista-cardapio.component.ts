@@ -14,7 +14,7 @@ export class ListaCardapioComponent implements OnInit {
   constructor(private cardapioService: CardapioService) { }
 
   ngOnInit(): void {
-    this.cardapioService.listar().subscribe(cardapioList => {
+    this.cardapioService.findAllContent().subscribe(cardapioList => {
       this.listaCardapio = cardapioList
     })
   }

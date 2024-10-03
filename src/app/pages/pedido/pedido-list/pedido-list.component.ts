@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map, Observable, of, Subject, tap } from 'rxjs';
+import { map, Observable, of, Subject } from 'rxjs';
 import { PedidoService } from 'src/app/core/service/pedidos.service';
 
 @Component({

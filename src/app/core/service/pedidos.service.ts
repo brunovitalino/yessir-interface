@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { map, Observable } from 'rxjs';
 import { PageResponse } from 'src/app/shared/model/page-response';
 import { Pedido } from 'src/app/shared/model/pedido';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ export class PedidoService {
 
   private readonly API_HOST = environment.apiHost;
   private readonly ENDPOINT = `${this.API_HOST}/pedidos`
+
+  private token: string;
 
   constructor(private httpClient: HttpClient) { }
   
@@ -35,7 +38,10 @@ export class PedidoService {
   }
 
   findTheLatestbyAtendimentoId(atendimentoId: number): Observable<Pedido[]> {
-    return this.httpClient.get<Pedido[]>(`${this.ENDPOINT}/atendimento/${atendimentoId}`);
+    const headers = new HttpHeaders({
+      'Accept':'application/json'
+    });
+    return this.httpClient.get<Pedido[]>(`${this.ENDPOINT}/atendimento/${atendimentoId}`, {headers});
   }
 
   save(pedido: Pedido): void {

@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,7 +13,7 @@ interface AuthResponse {
 })
 export class AutenticacaoService {
 
-  private apiUrl: string = environment.apiHost3000;
+  private apiUrl: string = environment.apiHost;
 
   constructor(
     private http: HttpClient,
@@ -21,10 +21,13 @@ export class AutenticacaoService {
   ) {}
 
   autenticar(email: string, senha: string): Observable<HttpResponse<AuthResponse>> {
+    const headers = new HttpHeaders({
+      'Accept': 'application/json'
+    });
     return this.http.post<AuthResponse>(
       `${this.apiUrl}/auth/login`,
       { email, senha },
-      { observe: 'response'}
+      { observe: 'response', headers }
     ).pipe(
       tap((response) => {
         const authToken = response.body?.access_token || '';

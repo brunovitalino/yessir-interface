@@ -38,7 +38,7 @@ export class AtendimentoComponent {
   loadMesas(): void {
     this.mesaService.findAllContent().pipe(switchMap(mesas =>
       this.atendimentoService.findAllContent().pipe(map(atendimentos => {
-        let mesasIds = atendimentos.map(a => a.mesa.id);
+        const mesasIds = atendimentos.map(a => a.mesa.id);
         return mesas.filter(m => mesasIds.some(mesaId => mesaId == m.id));
       }))
     )).subscribe(mesas => {

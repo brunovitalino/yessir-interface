@@ -1,10 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Cardapio } from '../../../../shared/model/cardapio';
-import { CardapioService } from '../../cardapio.service';
-import { ModalPedirComponent } from './modal-pedir/modal-pedir.component';
-import { FormGroup } from '@angular/forms';
 import { CardBuscaCardapioService } from './card-busca-cardapio.service';
+import { ModalPedirComponent } from './modal-pedir/modal-pedir.component';
 
 @Component({
   selector: 'app-card-busca-cardapio',

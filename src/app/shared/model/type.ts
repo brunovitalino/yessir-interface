@@ -14,4 +14,5 @@ export interface PessoaUsuaria {
   cidade: string;
   estado: UnidadeFederativa;
   genero: string;
+  sub: string;
 }

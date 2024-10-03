@@ -26,7 +26,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { FilterCardapioComponent } from './pages/cardapio/filter-cardapio/filter-cardapio.component';
 import { ModalPedirComponent } from './pages/cardapio/lista-cardapio/card-busca-cardapio/modal-pedir/modal-pedir.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CardBuscaCardapioComponent } from './pages/cardapio/lista-cardapio/card-busca-cardapio/card-busca-cardapio.component';
 import { CardapioComponent } from './pages/cardapio/cardapio.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -37,6 +37,7 @@ import { MatTableModule } from '@angular/material/table';
 import { ModalAdicionarComponent } from './shared/modal-adicionar/modal-adicionar.component';
 import { AtendimentoComponent } from './pages/atendimento/atendimento.component';
 import { SharedModule } from './shared/shared.module';
+import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interceptor';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,13 @@ import { SharedModule } from './shared/shared.module';
     MatTableModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AutenticacaoInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
