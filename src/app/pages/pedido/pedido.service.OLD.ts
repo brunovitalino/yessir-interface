@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PedidoService {
   
-  private readonly API_HOST = environment.apiHost;
+  private readonly API_HOST = environment.apiHost3000;
 
   constructor(
     private http: HttpClient

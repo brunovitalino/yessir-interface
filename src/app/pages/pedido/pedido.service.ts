@@ -11,8 +11,8 @@ import { environment } from 'src/environments/environment';
 })
 export class PedidoService {
   
-  private readonly API_HOST = environment.apiHost;
-  private readonly ENDPOINT = `${environment.apiHost}/pedidos`;
+  private readonly API_HOST = environment.apiHost3000;
+  private readonly ENDPOINT = `${environment.apiHost3000}/pedidos`;
 
   constructor(
     private http: HttpClient

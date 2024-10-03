@@ -7,10 +7,10 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AtendimentoService {
+export class AtendimentoServiceOld {
   
-  private readonly API_HOST = environment.apiHost;
-  private readonly ENDPOINT = `${environment.apiHost}/atendimentos`;
+  private readonly API_HOST = environment.apiHost3000;
+  private readonly ENDPOINT = `${environment.apiHost3000}/atendimentos`;
 
   constructor(private http: HttpClient) { }
   

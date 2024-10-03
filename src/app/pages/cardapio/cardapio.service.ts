@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CardapioService {
 
-  private readonly API_HOST = environment.apiHost;
+  private readonly API_HOST = environment.apiHost3000;
   private readonly ENDPOINT = `${this.API_HOST}/cardapios`;
 
   constructor(private http: HttpClient) { }

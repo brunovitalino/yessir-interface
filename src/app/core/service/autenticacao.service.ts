@@ -13,7 +13,7 @@ interface AuthResponse {
 })
 export class AutenticacaoService {
 
-  private apiUrl: string = environment.apiHost;
+  private apiUrl: string = environment.apiHost3000;
 
   constructor(
     private http: HttpClient,

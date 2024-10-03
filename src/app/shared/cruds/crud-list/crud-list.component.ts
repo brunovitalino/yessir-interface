@@ -51,7 +51,6 @@ export class CrudListComponent implements OnInit, OnDestroy {
 
   loadDataSource(): void {
     this.dataSourceSubscription.subscribe(data => {
-      console.log("preco", data)
       this.dataSource = data;
       this.changeDetectorRef.detectChanges();
     });

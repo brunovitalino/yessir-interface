@@ -4,8 +4,9 @@ import { Mesa } from 'src/app/shared/model/mesa';
 import { MesaService } from 'src/app/core/service/mesa.service';
 import { Atendimento } from 'src/app/shared/model/atendimento';
 import { PedidoService } from '../pedido/pedido.service';
-import { AtendimentoService } from './atendimento.service';
-import { map, Observable, of, skipWhile, Subject, switchMap } from 'rxjs';
+import { AtendimentoServiceOld } from './atendimento_OLD.service';
+import { AtendimentoService } from 'src/app/core/service/atendimento.service';
+import { map, Observable, of, skipWhile, Subject, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-atendimento',
@@ -21,6 +22,7 @@ export class AtendimentoComponent {
   public mesaId: number;
 
   constructor(
+    private atendimentoServiceOld: AtendimentoServiceOld,
     private atendimentoService: AtendimentoService,
     private mesaService: MesaService,
     private router: Router,
@@ -36,24 +38,16 @@ export class AtendimentoComponent {
   }
 
   loadAtendimentosAndMesas(): void {
-    this.atendimentoService.loadAll().subscribe(atendimentos => {
+    this.atendimentoServiceOld.loadAll().subscribe(atendimentos => {
       this.atendimentos = atendimentos;
       this.loadMesas();
     });
   }
 
-  loadMesasOld(atendimentos: Atendimento[]): void {
-    if (!atendimentos.length) return;
-    this.mesaService.load().subscribe(mesas => {
-      let mesasIds = atendimentos.map(a => a.mesaId);
-      this.mesas = mesas.filter(m => mesasIds.some(mesaId => mesaId == m.id));
-    });
-  }
-
   loadMesas(): void {
-    this.mesaService.load().pipe(switchMap(mesas =>
-      this.atendimentoService.loadAll().pipe(map(atendimentos => {
-        let mesasIds = atendimentos.map(a => a.mesaId);
+    this.mesaService.findAllContent().pipe(switchMap(mesas =>
+      this.atendimentoService.findAllContent().pipe(map(atendimentos => {
+        let mesasIds = atendimentos.map(a => a.mesa.id);
         return mesas.filter(m => mesasIds.some(mesaId => mesaId == m.id));
       }))
     )).subscribe(mesas => {
@@ -77,8 +71,8 @@ export class AtendimentoComponent {
   loadTableDataSource(mesaId: number): void {
     if (!mesaId) return;
     this.mesaId = mesaId;
-    this.atendimentoService.loadOneByMesaId(mesaId).pipe(switchMap(atendimento =>
-      !atendimento ? of([]) : this.pedidoService.loadByAtendimentoId(atendimento.id)
+    this.atendimentoService.findTheLatestbyMesaId(mesaId).pipe(switchMap(atendimento =>
+      !atendimento ? of() : this.pedidoService.loadByAtendimentoId(atendimento.id)
     )).pipe(map(pedidos =>
       pedidos.map(p => (
         {
