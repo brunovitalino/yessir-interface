@@ -3,11 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, of, Subject, switchMap } from 'rxjs';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { MesaService } from 'src/app/core/service/mesa.service';
+import { PedidoService } from 'src/app/core/service/pedidos.service';
 import { Atendimento } from 'src/app/shared/model/atendimento';
 import { Mesa } from 'src/app/shared/model/mesa';
-import { PedidoOld2Service } from '../pedido/pedido-old2.service';
-import { AtendimentoServiceOld } from './atendimento_OLD.service';
-import { PedidoService } from 'src/app/core/service/pedidos.service';
 
 @Component({
   selector: 'app-atendimento',
@@ -23,12 +21,10 @@ export class AtendimentoComponent {
   public mesaId: number;
 
   constructor(
-    private atendimentoServiceOld: AtendimentoServiceOld,
     private atendimentoService: AtendimentoService,
     private mesaService: MesaService,
     private router: Router,
     private route: ActivatedRoute,
-    private pedidoOld2Service: PedidoOld2Service,
     private pedidoService: PedidoService
   ) {
   }
@@ -37,13 +33,6 @@ export class AtendimentoComponent {
     this.loadMesas();
     this.loadTableColsNames();
     this.loadDinamicTableDataSource();
-  }
-
-  loadAtendimentosAndMesas(): void {
-    this.atendimentoServiceOld.loadAll().subscribe(atendimentos => {
-      this.atendimentos = atendimentos;
-      this.loadMesas();
-    });
   }
 
   loadMesas(): void {
@@ -73,7 +62,8 @@ export class AtendimentoComponent {
   loadTableDataSource(mesaId: number): void {
     if (!mesaId) return;
     this.mesaId = mesaId;
-    this.atendimentoService.findTheLatestbyMesaId(mesaId).pipe(switchMap(atendimento =>
+    this.atendimentoService.findTheLatestbyMesaId(mesaId)
+    .pipe(switchMap(atendimento =>
       !atendimento ? of() : this.pedidoService.findTheLatestbyAtendimentoId(atendimento.id)
     )).pipe(map(pedidos =>
       pedidos.map(p => (

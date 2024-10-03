@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { map, Observable, of, Subject } from 'rxjs';
-import { Pedido } from 'src/app/shared/model/pedido';
-import { PedidoOld2Service } from '../pedido-old2.service';
+import { map, Observable, of, Subject, tap } from 'rxjs';
+import { PedidoService } from 'src/app/core/service/pedidos.service';
 
 @Component({
   selector: 'app-pedido-list',
@@ -15,7 +14,7 @@ export class PedidoListComponent implements OnInit {
   pedidosSubscription: Subject<any> = new Subject();
   linhas: Observable<any[]> = of([]);
 
-  constructor(private pedidoService: PedidoOld2Service) { }
+  constructor(private pedidoService: PedidoService) { }
 
   ngOnInit(): void {
     //this.loadPageable();
@@ -36,7 +35,8 @@ export class PedidoListComponent implements OnInit {
   }
 
   loadTableDataSource(): void {
-    this.pedidoService.loadByAtendimentoId(2).pipe(map(pedidos =>
+    this.pedidoService.findTheLatestbyAtendimentoId(3)
+    .pipe(map(pedidos =>
       pedidos.map(p => (
         {
           id: p.id,
@@ -45,8 +45,8 @@ export class PedidoListComponent implements OnInit {
           quantidade: p.quantidade,
           total: p.cardapio.preco * p.quantidade
         }
-      )))
-    ).subscribe(pedidos => this.pedidosSubscription.next(pedidos));
+      ))
+    )).subscribe(pedidos => this.pedidosSubscription.next(pedidos));
   }
 
   updateDataSourceElement(element: any): void {
