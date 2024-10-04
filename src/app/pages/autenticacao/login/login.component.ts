@@ -32,7 +32,10 @@ export class LoginComponent {
       this.authService.autenticar(email, senha).subscribe({
         next: (value) => {
           console.log('Autenticado com sucesso', value);
-          this.router.navigateByUrl('/');
+          if (this.authService.isGarcomAutenticado())
+            this.router.navigateByUrl('/atendimento');
+          else
+            this.router.navigateByUrl('/');
           this.loginForm.reset();
         },
         error: (err) => {

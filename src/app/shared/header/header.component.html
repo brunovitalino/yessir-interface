@@ -2,9 +2,9 @@
   <mat-toolbar>
     <span class="spacer"></span>
     <div class="links toolbar">
-      <button routerLink="/cardapio" mat-button>Cardápio</button>
-      <button routerLink="/pedido" mat-button>Pedido</button>
-      <button routerLink="/atendimento" mat-button>Atendimento</button>
+      <button *ngIf="isUserMesa()" routerLink="/cardapio" mat-button>Cardápio</button>
+      <button *ngIf="isUserMesa()" routerLink="/pedido" mat-button>Pedido</button>
+      <button *ngIf="isUserGarcom()" routerLink="/atendimento" mat-button>Atendimento</button>
       <button *ngIf="false" mat-button>Sobre</button>
       <ng-container *ngIf="user$ | async as PessoaUsuaria, else login">
         <a>

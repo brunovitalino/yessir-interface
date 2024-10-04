@@ -15,4 +15,5 @@ export interface PessoaUsuaria {
   estado: UnidadeFederativa;
   genero: string;
   sub: string;
+  roles: string;
 }

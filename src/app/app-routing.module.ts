@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { CardapioComponent } from './pages/cardapio/cardapio.component';
 import { PedidoListComponent } from './pages/pedido/pedido-list/pedido-list.component';
 import { AtendimentoComponent } from './pages/atendimento/atendimento.component';
-import { authGuard } from './core/guards/auth.guard';
+import { mesaAuthGuard } from './core/guards/mesa-auth.guard';
+import { garcomAuthGuard } from './core/guards/garcom-auth.guard';
 
 const routes: Routes = [
   {
@@ -17,16 +18,18 @@ const routes: Routes = [
   },
   {
     path: 'cardapio',
-    component: CardapioComponent
+    component: CardapioComponent,
+    canActivate: [mesaAuthGuard]
   },
   {
     path: 'pedido',
     component: PedidoListComponent,
-    canActivate: [authGuard]
+    canActivate: [mesaAuthGuard]
   },
   {
     path: 'atendimento',
-    component: AtendimentoComponent
+    component: AtendimentoComponent,
+    canActivate: [garcomAuthGuard]
   },
   {
     path: 'atendimento/:mesaId',

@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.initUsusarioInfo();
+    this.isUserMesa();
   }
   
   initUsusarioInfo(): void {
@@ -29,6 +30,14 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.userService.logout();
     this.router.navigate(['auth/login']);
+  }
+  
+  isUserMesa() {
+    return this.userService.isAdmin() || this.userService.isMesa();
+  }
+  
+  isUserGarcom() {
+    return this.userService.isAdmin() || this.userService.isGarcom();
   }
 
 }

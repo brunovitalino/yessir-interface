@@ -36,4 +36,8 @@ export class AutenticacaoService {
     );
   }
 
+  isGarcomAutenticado(): boolean {
+    return this.userService.isGarcom();
+  }
+
 }
