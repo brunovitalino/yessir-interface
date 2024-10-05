@@ -1,5 +1,5 @@
 <mat-sidenav-container autosize>
-  <mat-sidenav [opened]="true" mode="side">
+  <mat-sidenav [opened]="false" mode="side">
     <h1>EM ALTA</h1>
     <label>Aperitivos</label>
     <mat-nav-list>
@@ -75,8 +75,13 @@
     <section class="homepage">
       <app-container>
         <h2>Cardápio</h2>
-        <app-filter-cardapio></app-filter-cardapio>
-        <app-lista-cardapio></app-lista-cardapio>
+        <ng-container *ngIf="hasAtendimentoIniciado(), else novoPedido">
+          <app-filter-cardapio></app-filter-cardapio>
+          <app-lista-cardapio></app-lista-cardapio>
+        </ng-container>
+        <ng-template #novoPedido>
+          <button (click)="iniciarAtendimento()" mat-flat-button color="primary">INICIAR PEDIDO</button>
+        </ng-template>
       </app-container>
     </section>
   </mat-sidenav-content>

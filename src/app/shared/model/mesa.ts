@@ -1,4 +1,4 @@
 export interface Mesa {
-  "id": number,
-  "nome": string
+  id: number,
+  nome?: string
 }

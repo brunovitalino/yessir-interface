@@ -16,4 +16,5 @@ export interface PessoaUsuaria {
   genero: string;
   sub: string;
   roles: string;
+  mesaId: number;
 }

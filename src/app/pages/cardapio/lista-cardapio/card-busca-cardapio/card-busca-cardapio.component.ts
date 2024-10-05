@@ -15,8 +15,8 @@ export class CardBuscaCardapioComponent {
     id: 999,
     nome: "Macarrão",
     preco: 24,
-    nomeIcone: "local_dining",
-    tipo: "COMIDA"
+    cardapioIcone: { nome: "local_dining" },
+    cardapioTipo: { nome: "COMIDA" }
   }
 
   constructor(

@@ -44,12 +44,12 @@ export class PedidoService {
     return this.httpClient.get<Pedido[]>(`${this.ENDPOINT}/atendimento/${atendimentoId}`, {headers});
   }
 
-  save(pedido: Pedido): void {
+  save(pedido: Pedido): Observable<Pedido> {
     const headers = new HttpHeaders({
       'Accept':'application/json',
       'Content-Type':'application/json'
     });
-    this.httpClient.post<Pedido>(this.ENDPOINT, pedido, {headers});
+    return this.httpClient.post<Pedido>(this.ENDPOINT, pedido, {headers});
   }
 
   update(pedido: Pedido): void {

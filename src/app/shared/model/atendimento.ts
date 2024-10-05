@@ -1,10 +1,9 @@
+import { Atendente } from "./atendente"
 import { Mesa } from "./mesa"
 
 export interface Atendimento {
-  id: number,
+  id?: number,
   mesa: Mesa,
-  mesaId: number,
-  atendimento: Atendimento,
-  nomeAtendente: string,
-  status: string
+  atendente?: Atendente,
+  status?: string
 }

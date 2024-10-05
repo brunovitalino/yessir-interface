@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { CardapioIcone } from 'src/app/shared/model/cardapio-icone';
+import { CardapioTipo } from 'src/app/shared/model/cardapio-tipo';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +15,9 @@ export class CardBuscaCardapioService {
       id: new FormControl(0),
       nome: new FormControl('prato padrão'),
       preco: new FormControl(0),
-      nomeIcone: new FormControl('local_dining'),
-      tipo: new FormControl('COMIDA'),
-      quantidade: new FormControl(0)
+      cardapioIcone: new FormControl({ nome: "local_dining" } as CardapioIcone),
+      cardapioTipo: new FormControl({ nome: "COMIDA" } as CardapioTipo),
+      quantidade: new FormControl(1)
     });
   }
 

@@ -40,12 +40,12 @@ export class AtendimentoService {
     //.pipe(map(atendimentos => atendimentos.sort((a, p) => p.id - a.id)[0]));
   }
 
-  save(atendimento: Atendimento): void {
+  save(atendimento: Atendimento): Observable<Atendimento> {
     const headers = new HttpHeaders({
       'Accept':'application/json',
       'Content-Type':'application/json'
     });
-    this.httpClient.post<Atendimento>(this.ENDPOINT, atendimento, {headers});
+    return this.httpClient.post<Atendimento>(this.ENDPOINT, atendimento, {headers});
   }
 
   update(atendimento: Atendimento): void {

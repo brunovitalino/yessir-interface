@@ -56,7 +56,7 @@ export class UserService {
     return this.hasThatRole("GARCOM");
   }
 
-  hasThatRole(roleName: string) {
+  private hasThatRole(roleName: string) {
     return this.estaLogado() && this.userSubject.getValue().roles.toUpperCase().includes(roleName);
   }
 }
