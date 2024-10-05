@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { map, Observable, of, Subject } from 'rxjs';
+import { map, Observable, of, Subject, switchMap, tap } from 'rxjs';
+import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { PedidoService } from 'src/app/core/service/pedidos.service';
+import { UserService } from 'src/app/core/service/user.service';
+import { Atendimento } from 'src/app/shared/model/atendimento';
+import { Pedido } from 'src/app/shared/model/pedido';
 
 @Component({
   selector: 'app-pedido-list',
@@ -14,7 +18,11 @@ export class PedidoListComponent implements OnInit {
   pedidosSubscription: Subject<any> = new Subject();
   linhas: Observable<any[]> = of([]);
 
-  constructor(private pedidoService: PedidoService) { }
+  constructor(
+    private userService: UserService,
+    private atendimentoService: AtendimentoService,
+    private pedidoService: PedidoService
+  ) { }
 
   ngOnInit(): void {
     //this.loadPageable();
@@ -35,18 +43,26 @@ export class PedidoListComponent implements OnInit {
   }
 
   loadTableDataSource(): void {
-    this.pedidoService.findTheLatestbyAtendimentoId(3)
-    .pipe(map(pedidos =>
-      pedidos.map(p => (
-        {
-          id: p.id,
-          nome: p.cardapio.nome,
-          preco: p.cardapio.preco,
-          quantidade: p.quantidade,
-          total: p.cardapio.preco * p.quantidade
-        }
-      ))
-    )).subscribe(pedidos => this.pedidosSubscription.next(pedidos));
+    console.log("carregando tabela");
+    
+    this.userService.retornarUser().pipe(
+      switchMap(user => !user ? of({} as Atendimento) : this.atendimentoService.findTheLatestbyMesaId(user.mesaId)),
+      map(atendimento => {
+        if (!atendimento) return of({} as Pedido);
+        return this.pedidoService.findTheLatestbyAtendimentoId(atendimento.id).pipe(
+          map(pedidos => pedidos.map(p =>
+            ({
+              id: p.id,
+              nome: p.cardapio.nome,
+              preco: p.cardapio.preco,
+              quantidade: p.quantidade,
+              total: p.cardapio.preco * p.quantidade
+            })
+          )),
+          tap(pedidos => console.log("pedidos", pedidos))
+        );
+      })
+    ).subscribe(pedidos => this.pedidosSubscription.next(pedidos));
   }
 
   updateDataSourceElement(element: any): void {

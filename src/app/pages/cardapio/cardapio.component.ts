@@ -15,8 +15,6 @@ export class CardapioComponent implements OnInit {
   
   private mesaId: number;
   private atendimento: Atendimento;
-  private pedidoIniciado: boolean;
-  private pedidos: Pedido[] = [];
 
   constructor(
     public userService: UserService,
