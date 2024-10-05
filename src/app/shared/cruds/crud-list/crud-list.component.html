@@ -2,13 +2,23 @@
 
   
   <ng-container *ngFor="let displayedColumn of displayedColumnsInput;" matColumnDef="{{displayedColumn}}">
-    <div *ngIf="isUseSharpCharacter(displayedColumn)">
+    <ng-container *ngIf="isUseSharpCharacter(displayedColumn), else exibirValor">
       <th mat-header-cell *matHeaderCellDef class="column-name">#</th>
-    </div>
-    <div *ngIf="!isUseSharpCharacter(displayedColumn)">
-      <th mat-header-cell *matHeaderCellDef class="column-name">{{ displayedColumn }}</th>
-    </div>
-    <td mat-cell *matCellDef="let element">{{element[displayedColumn]}}</td>
+    </ng-container>
+    <ng-template #exibirValor>
+      <ng-container *ngIf="!isDecimalValue(displayedColumn), else showFormattedDecimalValue">
+        <th mat-header-cell *matHeaderCellDef class="column-name">{{ displayedColumn }}</th>
+      </ng-container>
+      <ng-template #showFormattedDecimalValue >
+        <th mat-header-cell *matHeaderCellDef class="column-name">{{ displayedColumn }}</th>
+      </ng-template>
+    </ng-template>
+    <ng-container *ngIf="!isDecimalValue(displayedColumn), else showFormattedDecimalValue">
+      <td mat-cell *matCellDef="let element">{{ element[displayedColumn] }}</td>
+    </ng-container>
+    <ng-template #showFormattedDecimalValue >
+      <td mat-cell *matCellDef="let element">{{ element[displayedColumn] | number: '1.2' }}</td>
+    </ng-template>
   </ng-container>
   <!--ng-container matColumnDef="total">
     <th mat-header-cell *matHeaderCellDef>Total</th>

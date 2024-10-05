@@ -25,7 +25,7 @@ export class CrudListComponent implements OnInit, OnDestroy {
   @Output() encerrarContaEvent = new EventEmitter();
 
   private confirmEvent: EventEmitter<boolean>;
-  displayedColumns: string[];
+  displayedColumns: string[] = [];
   dataSource: any[] = [];
 
   
@@ -47,6 +47,10 @@ export class CrudListComponent implements OnInit, OnDestroy {
 
   isUseSharpCharacter(columnTitle: string): boolean {
     return columnTitle == 'id'
+  }
+
+  isDecimalValue(columnTitle: string): boolean {
+    return columnTitle == 'preco' || columnTitle == 'total'
   }
 
   loadDataSource(): void {

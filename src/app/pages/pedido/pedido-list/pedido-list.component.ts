@@ -56,7 +56,7 @@ export class PedidoListComponent implements OnInit {
               nome: p.cardapio.nome,
               preco: p.cardapio.preco,
               quantidade: p.quantidade,
-              total: p.cardapio.preco * p.quantidade
+              total: (p.cardapio.preco * p.quantidade)
             })
           )),
           tap(pedidos => console.log("pedidos", pedidos))
