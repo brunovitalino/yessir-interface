@@ -5,9 +5,9 @@
         <h2>Pedido</h2>
         <div class="card-wrapper">
           <app-crud-list
-            [displayedColumnsInput]="tableColsNames" [dataSourceSubscription]="pedidosSubscription" [showEditRemoveIcons]="false"
-            (updateEvent)="updateDataSourceElement($event)" (removeEvent)="removeDataSourceElement($event)"
-            [isContaEncerrada]="false" (encerrarContaEvent)="encerrarConta()"
+            [displayedColumnsInput]="tableColsNames" [customPedidoList]="customPedidoList" [showEditRemoveIcons]="false"
+            (removeEvent)="removeDataSourceElement($event)"
+            [isContaEncerrada]="isContaEncerrada" (encerrarContaEvent)="encerrarConta()"
           ></app-crud-list>
         </div>
       </app-container>

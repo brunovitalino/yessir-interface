@@ -31,7 +31,7 @@ export class LoginComponent {
       const senha = this.loginForm.value.senha;
       this.authService.autenticar(email, senha).subscribe({
         next: (value) => {
-          console.log('Autenticado com sucesso', value);
+          //console.log('Autenticado com sucesso', value);
           if (this.authService.isGarcomAutenticado())
             this.router.navigateByUrl('/atendimento');
           else
@@ -39,7 +39,7 @@ export class LoginComponent {
           this.loginForm.reset();
         },
         error: (err) => {
-          console.log('Problema na autenticação', err);
+          console.log('Problema na autenticação');
         },
       });
     }

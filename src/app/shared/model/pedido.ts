@@ -3,7 +3,7 @@ import { Cardapio } from "./cardapio";
 
 export interface Pedido {
   id?: number;
-  atendimento: Atendimento;
-  cardapio: Cardapio;
+  atendimento?: Atendimento;
+  cardapio?: Cardapio;
   quantidade: number;
 }

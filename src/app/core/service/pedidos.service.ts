@@ -52,11 +52,11 @@ export class PedidoService {
     return this.httpClient.post<Pedido>(this.ENDPOINT, pedido, {headers});
   }
 
-  update(pedido: Pedido): void {
+  update(pedido: Pedido): Observable<Pedido> {
     const headers = new HttpHeaders({
       'Accept':'application/json',
       'Content-Type':'application/json'
     });
-    this.httpClient.put<Pedido>(this.ENDPOINT, pedido, {headers});
+    return this.httpClient.put<Pedido>(this.ENDPOINT, pedido, {headers});
   }
 }

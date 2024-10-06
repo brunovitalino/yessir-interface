@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { map, Observable, of, Subject, switchMap, tap } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { map, Observable, of, Subscription, switchMap, tap } from 'rxjs';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { PedidoService } from 'src/app/core/service/pedidos.service';
 import { UserService } from 'src/app/core/service/user.service';
@@ -11,12 +11,13 @@ import { Pedido } from 'src/app/shared/model/pedido';
   templateUrl: './pedido-list.component.html',
   styleUrls: ['./pedido-list.component.scss']
 })
-export class PedidoListComponent implements OnInit {
-  pageNumber: number = 1;
-  pageSize: number = 10;
+export class PedidoListComponent implements OnInit, OnDestroy {
   tableColsNames: string[] = [];
-  pedidosSubscription: Subject<any> = new Subject();
-  linhas: Observable<any[]> = of([]);
+  customPedidoList: any[] = [];
+  isContaEncerrada = false;
+  private atendimento: Atendimento;
+
+  loadPedidoListSubscription: Subscription;
 
   constructor(
     private userService: UserService,
@@ -25,17 +26,8 @@ export class PedidoListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //this.loadPageable();
     this.loadTableColsNames();
     this.loadTableDataSource();
-  }
-
-  loadPageable(): void {
-    this.pedidoService.findAll().subscribe(resp => {
-      this.pageNumber = resp.number;
-      this.pageSize = resp.size;
-      //this.pedidos = resp.content as Pedido[];
-    });
   }
 
   loadTableColsNames(): void {
@@ -45,10 +37,12 @@ export class PedidoListComponent implements OnInit {
   loadTableDataSource(): void {
     console.log("carregando tabela");
     
-    this.userService.retornarUser().pipe(
+    this.loadPedidoListSubscription = this.userService.retornarUser().pipe(
       switchMap(user => !user ? of({} as Atendimento) : this.atendimentoService.findTheLatestbyMesaId(user.mesaId)),
-      map(atendimento => {
+      switchMap(atendimento => {
         if (!atendimento) return of({} as Pedido);
+        this.isContaEncerrada = atendimento?.status?.includes('EM_PAGAMENTO');
+        this.atendimento = atendimento;
         return this.pedidoService.findTheLatestbyAtendimentoId(atendimento.id).pipe(
           map(pedidos => pedidos.map(p =>
             ({
@@ -59,14 +53,10 @@ export class PedidoListComponent implements OnInit {
               total: (p.cardapio.preco * p.quantidade)
             })
           )),
-          tap(pedidos => console.log("pedidos", pedidos))
+          tap(pedidos => this.customPedidoList = pedidos)
         );
       })
-    ).subscribe(pedidos => this.pedidosSubscription.next(pedidos));
-  }
-
-  updateDataSourceElement(element: any): void {
-    console.log('update event', element);
+    ).subscribe();
   }
 
   removeDataSourceElement(element: any): void {
@@ -74,7 +64,12 @@ export class PedidoListComponent implements OnInit {
   }
 
   encerrarConta(): void {
-    console.log('conta encerrada');
+    const atendimento = { id: this.atendimento.id, status: 'EM_PAGAMENTO' } as Atendimento;
+    this.atendimentoService.update(atendimento).subscribe(atendimento => this.isContaEncerrada = atendimento?.status?.includes('EM_PAGAMENTO'));
+  }
+  
+  ngOnDestroy(): void {
+    if(this.loadPedidoListSubscription) this.loadPedidoListSubscription.unsubscribe();
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscribable, Subscriber, Subscription } from 'rxjs';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { PedidoService } from 'src/app/core/service/pedidos.service';
 import { UserService } from 'src/app/core/service/user.service';
@@ -11,9 +12,10 @@ import { PessoaUsuaria } from 'src/app/shared/model/type';
   templateUrl: './cardapio.component.html',
   styleUrls: ['./cardapio.component.scss']
 })
-export class CardapioComponent implements OnInit {
+export class CardapioComponent implements OnInit, OnDestroy {
   
   private mesaId: number;
+  private loadMesaIdSubscription: Subscription;
   private atendimento: Atendimento;
 
   constructor(
@@ -27,7 +29,7 @@ export class CardapioComponent implements OnInit {
   }
   
   loadMesaId(): void {
-    this.userService.retornarUser().subscribe(user => {
+    this.loadMesaIdSubscription = this.userService.retornarUser().subscribe(user => {
       this.mesaId = user?.mesaId;
     });
   }
@@ -36,19 +38,24 @@ export class CardapioComponent implements OnInit {
     this.atendimento = { mesa: { id: this.mesaId } };
     this.atendimentoService.save(this.atendimento).subscribe({
       next: atendimento => this.atendimento = atendimento,
-      error: httpErrorResponse => console.error("ERROR:", httpErrorResponse.error.detail)
+      error: httpErrorResponse => console.error("ERRO ao iniciar atendimento em Cardapio:", httpErrorResponse.error.detail)
     });
   }
   
   loadAtendimento(): void {
     this.atendimentoService.findTheLatestbyMesaId(this.mesaId).subscribe({
       next: atendimento => this.atendimento = atendimento,
-      error: httpErrorResponse => console.error("ERROR:", httpErrorResponse.error.detail)
+      error: httpErrorResponse => console.error("ERRO ao carregar atendimento em Cardapio:", httpErrorResponse.error.detail)
     });
   }
   
   hasAtendimentoIniciado() {
     return !!this.atendimento;
   }
+  
+  ngOnDestroy(): void {
+    if(this.loadMesaIdSubscription) this.loadMesaIdSubscription.unsubscribe();
+  }
+  
 }
 

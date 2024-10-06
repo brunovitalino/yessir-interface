@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, of, Subject, switchMap } from 'rxjs';
+import { map, of, Subject, switchMap, tap } from 'rxjs';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { MesaService } from 'src/app/core/service/mesa.service';
 import { PedidoService } from 'src/app/core/service/pedidos.service';
 import { Atendimento } from 'src/app/shared/model/atendimento';
 import { Mesa } from 'src/app/shared/model/mesa';
+import { Pedido } from 'src/app/shared/model/pedido';
 
 @Component({
   selector: 'app-atendimento',
@@ -17,8 +18,10 @@ export class AtendimentoComponent {
   public atendimentos: Atendimento[] = [];
   public mesas: Mesa[] = [];
   public tableColsNames: string[] = [];
-  public pedidosSubscription: Subject<any> = new Subject();
+  public customPedidoList: any[] = [];
   public mesaId: number;
+  public isContaEncerrada: boolean;
+  private atendimento: Atendimento;
 
   constructor(
     private atendimentoService: AtendimentoService,
@@ -62,11 +65,14 @@ export class AtendimentoComponent {
   loadTableDataSource(mesaId: number): void {
     if (!mesaId) return;
     this.mesaId = mesaId;
-    this.atendimentoService.findTheLatestbyMesaId(mesaId)
-    .pipe(switchMap(atendimento =>
-      !atendimento ? of() : this.pedidoService.findTheLatestbyAtendimentoId(atendimento.id)
-    )).pipe(map(pedidos =>
-      pedidos.map(p => (
+    this.atendimentoService.findTheLatestbyMesaId(mesaId).pipe(
+      switchMap(atendimento => {
+        if (!atendimento) return of();
+        this.isContaEncerrada = atendimento?.status?.includes('EM_PAGAMENTO');
+        this.atendimento = atendimento;
+        return this.pedidoService.findTheLatestbyAtendimentoId(atendimento.id)
+      }),
+      map(pedidos => pedidos.map(p => (
         {
           id: p.id,
           nome: p.cardapio.nome,
@@ -74,12 +80,15 @@ export class AtendimentoComponent {
           quantidade: p.quantidade,
           total: p.cardapio.preco * p.quantidade
         }
-      ))
-    )).subscribe(pedidos => this.pedidosSubscription.next(pedidos));
+      )))
+    ).subscribe(pedidos => this.customPedidoList = pedidos);
   }
 
-  updateDataSourceElement(element: any): void {
-    console.log('update event', element);
+  updateGlobalPedidoListElement(pedidoEmEdicao: any): void {
+    const pedido = { id: pedidoEmEdicao.id, quantidade: pedidoEmEdicao.quantidade } as Pedido;
+    this.pedidoService.update(pedido).pipe(
+      map(pedidoEditado => this.customPedidoList.map(p => p.id != pedidoEditado.id ? p : pedidoEditado))
+    ).subscribe();
   }
 
   removeDataSourceElement(element: any): void {
@@ -87,7 +96,8 @@ export class AtendimentoComponent {
   }
 
   encerrarConta(): void {
-    console.log('conta encerrada');
+    const atendimento = { id: this.atendimento.id, status: 'EM_PAGAMENTO' } as Atendimento;
+    this.atendimentoService.update(atendimento).subscribe(atendimento => this.isContaEncerrada = atendimento?.status?.includes('EM_PAGAMENTO'));
   }
 
 }

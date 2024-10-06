@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { ModalAdicionarComponent } from '../../modal-adicionar/modal-adicionar.component';
@@ -12,12 +12,10 @@ import { Observable, of, Subject } from 'rxjs';
   styleUrls: ['./crud-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CrudListComponent implements OnInit, OnDestroy {
+export class CrudListComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild(MatTable) table: MatTable<Pedido>;
   @Input() displayedColumnsInput: string[] = [];
-  @Input() dataSourceInput: Observable<any[]> = of([]);
-  @Input() dataSourceSubscription: Subject<any> = new Subject();
-  @Input() linhasInput: string[] = [];
+  @Input() customPedidoList: any[] = [];
   @Input() showEditRemoveIcons = true;
   @Input() isContaEncerrada = false;
   @Output() updateEvent = new EventEmitter<any>();
@@ -31,14 +29,12 @@ export class CrudListComponent implements OnInit, OnDestroy {
   
   constructor(
     public dialog: MatDialog,
-    public modalAdicionarService: ModalAdicionarService,
-    private changeDetectorRef: ChangeDetectorRef
+    public modalAdicionarService: ModalAdicionarService
   ) {
   }
   
   ngOnInit(): void {
     this.loadDisplayedColumns();
-    this.loadDataSource();
   }
 
   loadDisplayedColumns(): void {
@@ -53,13 +49,6 @@ export class CrudListComponent implements OnInit, OnDestroy {
     return columnTitle == 'preco' || columnTitle == 'total'
   }
 
-  loadDataSource(): void {
-    this.dataSourceSubscription.subscribe(data => {
-      this.dataSource = data;
-      this.changeDetectorRef.detectChanges();
-    });
-  }
-
   isShowEditRemoveIcons(): boolean {
     return this.showEditRemoveIcons;
   }
@@ -72,23 +61,19 @@ export class CrudListComponent implements OnInit, OnDestroy {
     });
     this.confirmEvent = this.modalAdicionarService.getConfirmarEvent();
     this.confirmEvent.subscribe(() => {
-      let element = this.modalAdicionarService.formGroup.value;
-      this.dataSource = this.dataSource.map(e => {
-        if (e.id == element.id) {
-          if (element.total && element.preco && element.quantidade) {
-            element.total = element.preco * element.quantidade;
+      let pedidoEmEdicao = this.modalAdicionarService.formGroup.value;
+      this.dataSource = this.dataSource.map(pedido => {
+        if (pedido.id == pedidoEmEdicao.id) {
+          if (pedidoEmEdicao.total && pedidoEmEdicao.preco && pedidoEmEdicao.quantidade) {
+            pedidoEmEdicao.total = pedidoEmEdicao.preco * pedidoEmEdicao.quantidade;
           }
-          this.updateEvent.emit(element);
-          return element;
+          this.updateEvent.emit(pedidoEmEdicao);
+          return pedidoEmEdicao;
         }
-        return e;
+        return pedido;
       });
-      this.changeDetectorRef.detectChanges();
+      this.table.renderRows();
     });
-  }
-
-  refreshTable() {
-    this.changeDetectorRef.detectChanges();
   }
 
   remove(element: any): void {
@@ -99,17 +84,19 @@ export class CrudListComponent implements OnInit, OnDestroy {
   }
 
   encerrarConta(): void {
-    this.isContaEncerrada = true;
     this.encerrarContaEvent.emit();
-    this.changeDetectorRef.detectChanges();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const customPedidoListChanges = changes['customPedidoList'];
+    if (!!customPedidoListChanges) {
+      this.dataSource = customPedidoListChanges.currentValue;
+    }
   }
 
   ngOnDestroy(): void {
     if (this.confirmEvent) {
       this.confirmEvent.unsubscribe();
-    }
-    if (this.dataSourceSubscription) {
-      this.dataSourceSubscription.unsubscribe();
     }
   }
 

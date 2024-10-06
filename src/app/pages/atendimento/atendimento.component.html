@@ -18,7 +18,9 @@
         <h2>Pedido</h2>
         <div class="card-wrapper">
           <app-crud-list
-          [displayedColumnsInput]="tableColsNames" [dataSourceSubscription]="pedidosSubscription"
+            [displayedColumnsInput]="tableColsNames" [customPedidoList]="customPedidoList"
+            (updateEvent)="updateGlobalPedidoListElement($event)"
+            [isContaEncerrada]="isContaEncerrada" (encerrarContaEvent)="encerrarConta()"
           ></app-crud-list>
         </div>
       </app-container>

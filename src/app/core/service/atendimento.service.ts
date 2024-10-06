@@ -48,11 +48,11 @@ export class AtendimentoService {
     return this.httpClient.post<Atendimento>(this.ENDPOINT, atendimento, {headers});
   }
 
-  update(atendimento: Atendimento): void {
+  update(atendimento: Atendimento): Observable<Atendimento> {
     const headers = new HttpHeaders({
       'Accept':'application/json',
       'Content-Type':'application/json'
     });
-    this.httpClient.put<Atendimento>(this.ENDPOINT, atendimento, {headers});
+    return this.httpClient.put<Atendimento>(this.ENDPOINT, atendimento, {headers});
   }
 }

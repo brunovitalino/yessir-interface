@@ -24,7 +24,6 @@ export class ModalPedirComponent {
   ) { }
 
   confirmar() {
-    // this.cardBuscaCardapioService.formCardapio.get("quantidade")?.patchValue(7);
     window.console.log('ITEM FINAL', this.cardBuscaCardapioService.formCardapio.value);
     this.userService.retornarUser().pipe(
       switchMap(user => !user ? of({} as Atendimento) : this.atendimentoService.findTheLatestbyMesaId(user.mesaId)),
@@ -38,7 +37,7 @@ export class ModalPedirComponent {
       next: pedido => {
         console.log("retorno de pedido", pedido);
         this.cardBuscaCardapioService.formCardapio.get("quantidade")?.patchValue(1);
-      },error: httpErrorResponse => console.log("ERROR", httpErrorResponse.err.detail)
+      },error: httpErrorResponse => console.log("ERRO em confirmar Pedido", httpErrorResponse.err.detail)
     });
   }
 
