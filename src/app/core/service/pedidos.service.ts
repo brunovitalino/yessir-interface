@@ -59,4 +59,9 @@ export class PedidoService {
     });
     return this.httpClient.put<Pedido>(this.ENDPOINT, pedido, {headers});
   }
+  
+  delete(id: number): Observable<any> {
+    return this.httpClient.delete(`${this.ENDPOINT}/${id}`);
+  }
+  
 }

@@ -84,15 +84,16 @@ export class AtendimentoComponent {
     ).subscribe(pedidos => this.customPedidoList = pedidos);
   }
 
-  updateGlobalPedidoListElement(pedidoEmEdicao: any): void {
+  updatePedidoListElement(pedidoEmEdicao: any): void {
     const pedido = { id: pedidoEmEdicao.id, quantidade: pedidoEmEdicao.quantidade } as Pedido;
     this.pedidoService.update(pedido).pipe(
       map(pedidoEditado => this.customPedidoList.map(p => p.id != pedidoEditado.id ? p : pedidoEditado))
     ).subscribe();
   }
 
-  removeDataSourceElement(element: any): void {
-    console.log('remove event', element);
+  deletePedidoListElement(pedidoASerRemovido: any): void {
+    console.log("chegouxx", pedidoASerRemovido);
+    this.pedidoService.delete(pedidoASerRemovido.id).subscribe(resp => console.log("elem removido", resp));
   }
 
   encerrarConta(): void {

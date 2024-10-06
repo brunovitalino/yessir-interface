@@ -59,10 +59,6 @@ export class PedidoListComponent implements OnInit, OnDestroy {
     ).subscribe();
   }
 
-  removeDataSourceElement(element: any): void {
-    console.log('remove event', element);
-  }
-
   encerrarConta(): void {
     const atendimento = { id: this.atendimento.id, status: 'EM_PAGAMENTO' } as Atendimento;
     this.atendimentoService.update(atendimento).subscribe(atendimento => this.isContaEncerrada = atendimento?.status?.includes('EM_PAGAMENTO'));

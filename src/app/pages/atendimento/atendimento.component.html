@@ -19,7 +19,7 @@
         <div class="card-wrapper">
           <app-crud-list
             [displayedColumnsInput]="tableColsNames" [customPedidoList]="customPedidoList"
-            (updateEvent)="updateGlobalPedidoListElement($event)"
+            (updateEvent)="updatePedidoListElement($event)" (removeEvent)="deletePedidoListElement($event)"
             [isContaEncerrada]="isContaEncerrada" (encerrarContaEvent)="encerrarConta()"
           ></app-crud-list>
         </div>
