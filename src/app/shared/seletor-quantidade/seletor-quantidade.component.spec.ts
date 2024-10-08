@@ -6,10 +6,12 @@ describe('SeletorQuantidadeComponent', () => {
   let component: SeletorQuantidadeComponent;
   let fixture: ComponentFixture<SeletorQuantidadeComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [SeletorQuantidadeComponent]
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ SeletorQuantidadeComponent ]
+    })
+    .compileComponents();
+
     fixture = TestBed.createComponent(SeletorQuantidadeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

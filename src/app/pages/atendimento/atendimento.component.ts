@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, of, Subject, switchMap, tap } from 'rxjs';
+import { map, of, switchMap } from 'rxjs';
+
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { MesaService } from 'src/app/core/service/mesa.service';
 import { PedidoService } from 'src/app/core/service/pedidos.service';
-import { Atendimento } from 'src/app/shared/model/atendimento';
-import { Mesa } from 'src/app/shared/model/mesa';
-import { Pedido } from 'src/app/shared/model/pedido';
+import { Atendimento } from 'src/app/core/model/atendimento';
+import { Mesa } from 'src/app/core/model/mesa';
+import { Pedido } from 'src/app/core/model/pedido';
 
 @Component({
   selector: 'app-atendimento',

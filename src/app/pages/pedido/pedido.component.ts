@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { map, Observable, of, Subscription, switchMap, tap } from 'rxjs';
+import { map, of, Subscription, switchMap, tap } from 'rxjs';
+import { Atendimento } from 'src/app/core/model/atendimento';
+import { Pedido } from 'src/app/core/model/pedido';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { PedidoService } from 'src/app/core/service/pedidos.service';
 import { UserService } from 'src/app/core/service/user.service';
-import { Atendimento } from 'src/app/shared/model/atendimento';
-import { Pedido } from 'src/app/shared/model/pedido';
 
 @Component({
-  selector: 'app-pedido-list',
-  templateUrl: './pedido-list.component.html',
-  styleUrls: ['./pedido-list.component.scss']
+  selector: 'app-pedido',
+  templateUrl: './pedido.component.html',
+  styleUrls: ['./pedido.component.scss']
 })
-export class PedidoListComponent implements OnInit, OnDestroy {
+export class PedidoComponent implements OnInit, OnDestroy {
   tableColsNames: string[] = [];
   customPedidoList: any[] = [];
   isContaEncerrada = false;

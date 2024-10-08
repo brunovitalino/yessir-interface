@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Mesa } from '../../shared/model/mesa';
 import { environment } from 'src/environments/environment';
 import { map, Observable } from 'rxjs';
-import { PageResponse } from 'src/app/shared/model/page-response';
+import { Mesa } from '../model/mesa';
+import { PageResponse } from '../model/page-response';
 
 @Injectable({
   providedIn: 'root'

@@ -7,8 +7,8 @@ RUN ["npm", "run", "build"]
 
 FROM nginx:alpine
 VOLUME [ "/var/cache/nginx" ]
-COPY --from=yessir-img /app/dist/buscante /usr/share/nginx/html
+COPY --from=yessir-img /app/dist/yessir-interface /usr/share/nginx/html
 COPY ./config/nginx.conf /etc/nginx/conf.d/default.conf
 
-# docker build -t yessir-front-img .
-# docker run -p 4200:80 yessir-front-img
+# docker build -t yessir-img .
+# docker run -p 8081:80 yessir-img

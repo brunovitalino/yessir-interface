@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-rxjs-bv": {
+      "hosting": {
+        "yessir-interface": [
+          "angular-rxjs-bv"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-rxjs-bv"
+  }
+}

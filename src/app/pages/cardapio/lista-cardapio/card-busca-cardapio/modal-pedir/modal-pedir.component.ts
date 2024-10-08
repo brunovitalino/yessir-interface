@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { CardapioService } from '../../../cardapio.service';
+import { of, switchMap } from 'rxjs';
+
 import { CardBuscaCardapioService } from '../card-busca-cardapio.service';
-import { Cardapio } from '../../../../../shared/model/cardapio';
+import { Cardapio } from 'src/app/core/model/cardapio';
 import { PedidoService } from 'src/app/core/service/pedidos.service';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { UserService } from 'src/app/core/service/user.service';
-import { pipe, map, switchMap, of, tap } from 'rxjs';
-import { Pedido } from 'src/app/shared/model/pedido';
-import { Atendimento } from 'src/app/shared/model/atendimento';
+import { Pedido } from 'src/app/core/model/pedido';
+import { Atendimento } from 'src/app/core/model/atendimento';
 
 @Component({
   selector: 'app-modal-pedir',

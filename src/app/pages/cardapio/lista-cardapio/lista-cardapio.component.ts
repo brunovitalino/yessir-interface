@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Cardapio } from '../../../shared/model/cardapio';
-import { CardapioService } from '../cardapio.service';
+
+import { Cardapio } from 'src/app/core/model/cardapio';
+import { CardapioService } from 'src/app/core/service/cardapio.service';
 
 @Component({
   selector: 'app-lista-cardapio',

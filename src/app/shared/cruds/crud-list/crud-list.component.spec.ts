@@ -6,10 +6,12 @@ describe('CrudListComponent', () => {
   let component: CrudListComponent;
   let fixture: ComponentFixture<CrudListComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [CrudListComponent]
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ CrudListComponent ]
+    })
+    .compileComponents();
+
     fixture = TestBed.createComponent(CrudListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

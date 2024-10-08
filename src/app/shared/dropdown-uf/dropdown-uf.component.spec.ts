@@ -6,10 +6,12 @@ describe('DropdownUfComponent', () => {
   let component: DropdownUfComponent;
   let fixture: ComponentFixture<DropdownUfComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [DropdownUfComponent]
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ DropdownUfComponent ]
+    })
+    .compileComponents();
+
     fixture = TestBed.createComponent(DropdownUfComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

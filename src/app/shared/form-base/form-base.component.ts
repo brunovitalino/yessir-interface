@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { UnidadeFederativa } from '../model/type';
 import { FormValidations } from '../form-validations';
+
+import { UnidadeFederativa } from 'src/app/core/model/type';
 import { FormularioService } from 'src/app/core/service/formulario.service';
 
 @Component({
@@ -58,4 +59,5 @@ export class FormBaseComponent {
   deslogar() {
     this.sair.emit();
   }
+
 }

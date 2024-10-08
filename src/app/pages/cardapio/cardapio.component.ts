@@ -1,11 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscribable, Subscriber, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+
+import { Atendimento } from 'src/app/core/model/atendimento';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
-import { PedidoService } from 'src/app/core/service/pedidos.service';
 import { UserService } from 'src/app/core/service/user.service';
-import { Atendimento } from 'src/app/shared/model/atendimento';
-import { Pedido } from 'src/app/shared/model/pedido';
-import { PessoaUsuaria } from 'src/app/shared/model/type';
 
 @Component({
   selector: 'app-cardapio',
@@ -56,6 +54,5 @@ export class CardapioComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if(this.loadMesaIdSubscription) this.loadMesaIdSubscription.unsubscribe();
   }
-  
-}
 
+}

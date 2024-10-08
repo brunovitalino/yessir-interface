@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CardapioComponent } from './pages/cardapio/cardapio.component';
-import { PedidoListComponent } from './pages/pedido/pedido-list/pedido-list.component';
+import { PedidoComponent } from './pages/pedido/pedido.component';
 import { AtendimentoComponent } from './pages/atendimento/atendimento.component';
 import { mesaAuthGuard } from './core/guards/mesa-auth.guard';
 import { garcomAuthGuard } from './core/guards/garcom-auth.guard';
@@ -23,7 +23,7 @@ const routes: Routes = [
   },
   {
     path: 'pedido',
-    component: PedidoListComponent,
+    component: PedidoComponent,
     canActivate: [mesaAuthGuard]
   },
   {

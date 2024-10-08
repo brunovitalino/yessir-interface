@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { map, Observable } from 'rxjs';
-import { PageResponse } from 'src/app/shared/model/page-response';
-import { Atendimento } from 'src/app/shared/model/atendimento';
+import { Atendimento } from '../model/atendimento';
+import { PageResponse } from '../model/page-response';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { CardapioIcone } from 'src/app/shared/model/cardapio-icone';
-import { CardapioTipo } from 'src/app/shared/model/cardapio-tipo';
+
+import { CardapioIcone } from 'src/app/core/model/cardapio-icone';
+import { CardapioTipo } from 'src/app/core/model/cardapio-tipo';
 
 @Injectable({
   providedIn: 'root'

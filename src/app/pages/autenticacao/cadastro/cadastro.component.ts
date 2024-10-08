@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CadastroService } from 'src/app/core/service/cadastro.service';
-import { FormularioService } from 'src/app/core/service/formulario.service';
-import { PessoaUsuaria } from 'src/app/shared/model/type';
+
+import { CadastroService } from '../../../core/service/cadastro.service';
+import { FormularioService } from '../../../core/service/formulario.service';
+import { PessoaUsuaria } from '../../../core/model/type';
 
 @Component({
   selector: 'app-cadastro',
@@ -33,4 +34,5 @@ export class CadastroComponent {
       });
     }
   }
+
 }

@@ -13,6 +13,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 
 
@@ -32,6 +35,9 @@ import { MatDividerModule } from '@angular/material/divider';
     MatAutocompleteModule,
     MatRadioModule,
     MatDividerModule,
+    MatTableModule,
+    MatSidenavModule,
+    MatListModule
     //MatCheckboxModule,
     //MatSliderModule,
     //MatSnackBarModule

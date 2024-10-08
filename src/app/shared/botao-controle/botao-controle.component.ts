@@ -9,4 +9,5 @@ export class BotaoControleComponent {
   @Input() operacao: 'incrementar' | 'decrementar' = "incrementar";
   @Input() src = '';
   @Input() alt = '';
+
 }

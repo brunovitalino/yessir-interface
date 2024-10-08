@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { PessoaUsuaria } from 'src/app/shared/model/type';
 import { environment } from 'src/environments/environment';
+import { PessoaUsuaria } from '../model/type';
 
 @Injectable({
   providedIn: 'root'

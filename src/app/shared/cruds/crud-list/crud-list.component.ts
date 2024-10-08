@@ -1,16 +1,16 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
+
 import { ModalAdicionarComponent } from '../../modal-adicionar/modal-adicionar.component';
 import { ModalAdicionarService } from '../../modal/adicionar/modal-adicionar.service';
-import { Pedido } from '../../model/pedido';
-import { Observable, of, Subject } from 'rxjs';
+import { Pedido } from 'src/app/core/model/pedido';
+import { PedidoView } from 'src/app/core/model/pedido-view';
 
 @Component({
   selector: 'app-crud-list',
   templateUrl: './crud-list.component.html',
-  styleUrls: ['./crud-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./crud-list.component.scss']
 })
 export class CrudListComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild(MatTable) table: MatTable<Pedido>;
@@ -22,7 +22,7 @@ export class CrudListComponent implements OnInit, OnChanges, OnDestroy {
   @Output() removeEvent = new EventEmitter<any>();
   @Output() encerrarContaEvent = new EventEmitter();
 
-  private confirmEvent: EventEmitter<boolean>;
+  private pedidoViewAtualizadoEvent: EventEmitter<PedidoView>;
   displayedColumns: string[] = [];
   dataSource: any[] = [];
 
@@ -41,11 +41,11 @@ export class CrudListComponent implements OnInit, OnChanges, OnDestroy {
     this.displayedColumns = !this.isShowEditRemoveIcons() ? [...this.displayedColumnsInput] : [...this.displayedColumnsInput, 'editRemoveIcons'];
   }
 
-  isUseSharpCharacter(columnTitle: string): boolean {
+  isIdColumn(columnTitle: string): boolean {
     return columnTitle == 'id'
   }
 
-  isDecimalValue(columnTitle: string): boolean {
+  isDecimalColumn(columnTitle: string): boolean {
     return columnTitle == 'preco' || columnTitle == 'total'
   }
 
@@ -54,14 +54,16 @@ export class CrudListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openEditDialog(element): void {
-    this.modalAdicionarService.formGroup.patchValue(element);
+    console.log("modal edit", element);
+    //this.modalAdicionarService.formGroup.patchValue(element);
+    this.modalAdicionarService.setPedidoView(element);
     this.dialog.open(ModalAdicionarComponent, {
       width: '50%',
       disableClose: true
     });
-    this.confirmEvent = this.modalAdicionarService.getConfirmarEvent();
-    this.confirmEvent.subscribe(() => {
-      let pedidoEmEdicao = this.modalAdicionarService.formGroup.value;
+    this.pedidoViewAtualizadoEvent = this.modalAdicionarService.getConfirmarNovaQuantidadeEvent();
+    this.pedidoViewAtualizadoEvent.subscribe((pedidoEmEdicao) => {
+      //let pedidoEmEdicao = this.modalAdicionarService.formGroup.value;
       this.dataSource = this.dataSource.map(pedido => {
         if (pedido.id == pedidoEmEdicao.id) {
           if (pedidoEmEdicao.total && pedidoEmEdicao.preco && pedidoEmEdicao.quantidade) {
@@ -95,8 +97,8 @@ export class CrudListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.confirmEvent) {
-      this.confirmEvent.unsubscribe();
+    if (this.pedidoViewAtualizadoEvent) {
+      this.pedidoViewAtualizadoEvent.unsubscribe();
     }
   }
 

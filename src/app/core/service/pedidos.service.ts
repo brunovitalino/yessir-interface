@@ -2,9 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { map, Observable } from 'rxjs';
-import { PageResponse } from 'src/app/shared/model/page-response';
-import { Pedido } from 'src/app/shared/model/pedido';
 import { TokenService } from './token.service';
+import { Pedido } from '../model/pedido';
+import { PageResponse } from '../model/page-response';
 
 @Injectable({
   providedIn: 'root'

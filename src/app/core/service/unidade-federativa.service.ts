@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, shareReplay } from 'rxjs';
-import { UnidadeFederativa } from 'src/app/shared/model/type';
+import { UnidadeFederativa } from '../model/type';
 
 @Injectable({
   providedIn: 'root'

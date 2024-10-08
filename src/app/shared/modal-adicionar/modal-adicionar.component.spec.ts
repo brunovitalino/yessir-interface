@@ -6,10 +6,12 @@ describe('ModalAdicionarComponent', () => {
   let component: ModalAdicionarComponent;
   let fixture: ComponentFixture<ModalAdicionarComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ModalAdicionarComponent]
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ ModalAdicionarComponent ]
+    })
+    .compileComponents();
+
     fixture = TestBed.createComponent(ModalAdicionarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

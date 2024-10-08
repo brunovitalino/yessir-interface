@@ -1,23 +1,26 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
-
-  
   <ng-container *ngFor="let displayedColumn of displayedColumnsInput;" matColumnDef="{{displayedColumn}}">
-    <ng-container *ngIf="isUseSharpCharacter(displayedColumn), else exibirValor">
+    <ng-container *ngIf="isIdColumn(displayedColumn), else exibirValor">
       <th mat-header-cell *matHeaderCellDef class="column-name">#</th>
     </ng-container>
     <ng-template #exibirValor>
-      <ng-container *ngIf="!isDecimalValue(displayedColumn), else showFormattedDecimalValue">
+      <ng-container *ngIf="!isDecimalColumn(displayedColumn), else showFormattedDecimalValue">
         <th mat-header-cell *matHeaderCellDef class="column-name">{{ displayedColumn }}</th>
       </ng-container>
       <ng-template #showFormattedDecimalValue >
         <th mat-header-cell *matHeaderCellDef class="column-name">{{ displayedColumn }}</th>
       </ng-template>
     </ng-template>
-    <ng-container *ngIf="!isDecimalValue(displayedColumn), else showFormattedDecimalValue">
-      <td mat-cell *matCellDef="let element">{{ element[displayedColumn] }}</td>
+    <ng-container *ngIf="isIdColumn(displayedColumn), else showFormattedIdValue">
+      <td mat-cell *matCellDef="let i = index">{{ i+1 }}</td>
     </ng-container>
-    <ng-template #showFormattedDecimalValue >
-      <td mat-cell *matCellDef="let element">{{ element[displayedColumn] | number: '1.2' }}</td>
+    <ng-template #showFormattedIdValue >
+      <ng-container *ngIf="!isDecimalColumn(displayedColumn), else showFormattedDecimalValue">
+        <td mat-cell *matCellDef="let element">{{ element[displayedColumn] }}</td>
+      </ng-container>
+      <ng-template #showFormattedDecimalValue >
+        <td mat-cell *matCellDef="let element">{{ element[displayedColumn] | number: '1.2' }}</td>
+      </ng-template>
     </ng-template>
   </ng-container>
   <!--ng-container matColumnDef="total">
