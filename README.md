@@ -1,27 +1,56 @@
-# YesSir
+# Yes Sir
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.3.
+YesSir é um sistema de atendimento ao cliente em restaurantes. No momento é um MVP que está em seu início, mas que promete muitas funcionalidades novas interessantes para serem desenvolvidas.
 
-## Development server
+<img src="printscreen1.png" alt="Imagem do cardapio YesSir" width="50%">
+<img src="printscreen2.png" alt="Imagem do atendimento YesSir" width="50%">
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## 🔨 Funcionalidades do projeto
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Nesse primeiro momento, nós temos as jornadas iniciais para os Garçons e para as Mesas onde os clientes se encontram.
 
-## Build
+Nessa fase inicial, para os clientes das Mesas, serão disponibilizadas funcionalidades que as permitam:
+1. Visualizar itens de cardápio;
+2. Iniciar um pedido;
+3. Adicionar a quantidade desejada dos itens de cardápio ao pedido;
+4. Visualizar todos os itens que já foram pedidos até o momento;
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Já para os Garçons, poderão:
+1. Visualizar todas as Mesas que fizeram pedidos no momento;
+2. Visualizar os pedidos para uma Mesa específica;
+3. Remover itens de pedido de uma Mesa;
+4. Editar a quantidade de dos itens do pedido da Mesa.
 
-## Running unit tests
+O sistema também terá:
+1. Autenticação;
+2. Controle de acesso às telas por perfis de usuário. Garçons não conseguem ver as telas das Mesas, e vice-versa;
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+O desafio é desenvolver uma interface de usuário web que fará as iterações com os Garçons ou as Mesas.
 
-## Running end-to-end tests
+## ✔️ Tecnologias utilizadas
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Lista de tudo que foi usado nesse desenvolvimento:
 
-## Further help
+- `Javascript`
+- `Rxjs`
+- `Typescript`
+- `Angular`
+- `Angular CLI`
+- `Angular Material`
+- `Docker`
+- `AWS ECS`
+- `AWS ECR`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 🛠️ Abrir e rodar o projeto
+
+Para abrir e rodar o projeto, execute `npm i` para instalar as dependências e `ng serve` para iniciar o projeto.
+
+Depois, acesse <a href="http://localhost:4200/">http://localhost:4200/</a> no seu navegador.
+
+O backend utilizado você encontra [aqui](https://github.com/brunovitalino/yessir-api).
+
+## 📚 Mais informações do projeto
+
+O YesSir é um projeto fictício.
+A ideia principal desse projeto. é utilizar os conhecimentos adquiridos no curso de computação para demonstrar as várias possibilidades criação de novas tecnologias, seja através de desenvolvimento back-end, front-end, cloud, etc. :)
