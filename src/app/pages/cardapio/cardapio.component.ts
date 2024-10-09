@@ -41,6 +41,7 @@ export class CardapioComponent implements OnInit, OnDestroy {
   }
   
   loadAtendimento(): void {
+    if (!this.mesaId) return;
     this.atendimentoService.findTheLatestbyMesaId(this.mesaId).subscribe({
       next: atendimento => this.atendimento = atendimento,
       error: httpErrorResponse => console.error("ERRO ao carregar atendimento em Cardapio:", httpErrorResponse.error.detail)

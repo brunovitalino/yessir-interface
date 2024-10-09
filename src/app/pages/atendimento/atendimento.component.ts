@@ -93,7 +93,6 @@ export class AtendimentoComponent {
   }
 
   deletePedidoListElement(pedidoASerRemovido: any): void {
-    console.log("chegouxx", pedidoASerRemovido);
     this.pedidoService.delete(pedidoASerRemovido.id).subscribe(resp => console.log("elem removido", resp));
   }
 

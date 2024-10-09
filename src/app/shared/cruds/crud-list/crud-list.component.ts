@@ -5,7 +5,6 @@ import { MatTable } from '@angular/material/table';
 import { ModalAdicionarComponent } from '../../modal-adicionar/modal-adicionar.component';
 import { ModalAdicionarService } from '../../modal/adicionar/modal-adicionar.service';
 import { Pedido } from 'src/app/core/model/pedido';
-import { PedidoView } from 'src/app/core/model/pedido-view';
 
 @Component({
   selector: 'app-crud-list',
@@ -22,7 +21,7 @@ export class CrudListComponent implements OnInit, OnChanges, OnDestroy {
   @Output() removeEvent = new EventEmitter<any>();
   @Output() encerrarContaEvent = new EventEmitter();
 
-  private pedidoViewAtualizadoEvent: EventEmitter<PedidoView>;
+  private confirmEvent: EventEmitter<boolean>;
   displayedColumns: string[] = [];
   dataSource: any[] = [];
 
@@ -35,6 +34,7 @@ export class CrudListComponent implements OnInit, OnChanges, OnDestroy {
   
   ngOnInit(): void {
     this.loadDisplayedColumns();
+    console.log('dados da tabela init', this.customPedidoList);
   }
 
   loadDisplayedColumns(): void {
@@ -54,16 +54,14 @@ export class CrudListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openEditDialog(element): void {
-    console.log("modal edit", element);
-    //this.modalAdicionarService.formGroup.patchValue(element);
-    this.modalAdicionarService.setPedidoView(element);
+    this.modalAdicionarService.formGroup.patchValue(element);
     this.dialog.open(ModalAdicionarComponent, {
       width: '50%',
       disableClose: true
     });
-    this.pedidoViewAtualizadoEvent = this.modalAdicionarService.getConfirmarNovaQuantidadeEvent();
-    this.pedidoViewAtualizadoEvent.subscribe((pedidoEmEdicao) => {
-      //let pedidoEmEdicao = this.modalAdicionarService.formGroup.value;
+    this.confirmEvent = this.modalAdicionarService.getConfirmarEvent();
+    this.confirmEvent.subscribe(() => {
+      let pedidoEmEdicao = this.modalAdicionarService.formGroup.value;
       this.dataSource = this.dataSource.map(pedido => {
         if (pedido.id == pedidoEmEdicao.id) {
           if (pedidoEmEdicao.total && pedidoEmEdicao.preco && pedidoEmEdicao.quantidade) {
@@ -93,12 +91,13 @@ export class CrudListComponent implements OnInit, OnChanges, OnDestroy {
     const customPedidoListChanges = changes['customPedidoList'];
     if (!!customPedidoListChanges) {
       this.dataSource = customPedidoListChanges.currentValue;
+      console.log('dados da tabela', this.dataSource);
     }
   }
 
   ngOnDestroy(): void {
-    if (this.pedidoViewAtualizadoEvent) {
-      this.pedidoViewAtualizadoEvent.unsubscribe();
+    if (this.confirmEvent) {
+      this.confirmEvent.unsubscribe();
     }
   }
 

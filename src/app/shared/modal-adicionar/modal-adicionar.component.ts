@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ModalAdicionarService } from '../modal/adicionar/modal-adicionar.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-adicionar',
@@ -8,20 +9,17 @@ import { ModalAdicionarService } from '../modal/adicionar/modal-adicionar.servic
   styleUrls: ['./modal-adicionar.component.scss']
 })
 export class ModalAdicionarComponent {
-  quantidade: number = 0;
 
   constructor(public modalAdicionarService: ModalAdicionarService) { }
 
-  obterQuantidadeDePedidoView(): number {
-    return this.modalAdicionarService.obterQuantidadeDePedidoView();
-  }
-
-  atualizarQuantidade(quantidade: number) {
-    this.quantidade = quantidade;
+  obterFormControl(formControlName: string): FormControl {
+    return this.modalAdicionarService.obterFormControl(formControlName);
   }
 
   confirmar(): void {
-    this.modalAdicionarService.atualizarQuantidadeDePedidoView(this.quantidade);
+    // this.cardBuscaCardapioService.formCardapio.get("quantidade")?.patchValue(7);
+    // window.console.log('ITEM FINAL', this.modalAdicionarService.formGroup.value)
+    this.modalAdicionarService.confirmar();
   }
 
 }

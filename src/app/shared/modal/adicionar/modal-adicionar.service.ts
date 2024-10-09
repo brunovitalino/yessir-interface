@@ -1,33 +1,44 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
-import { PedidoView } from 'src/app/core/model/pedido-view';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalAdicionarService {
 
-  private pedidoViewAtualizadoEvent = new EventEmitter<PedidoView>();
+  private confirmarEvent = new EventEmitter<boolean>();
   formGroup: FormGroup;
 
-  private pedidoView: PedidoView;
-
-  setPedidoView(pedidoView: PedidoView): void {
-    this.pedidoView = pedidoView;
+  constructor() {
+    this.initFormGroup();
+    // var pedidoFormControlers = Object.keys(this.pedido).map(key => [key, new FormControl(this.pedido[key])]);
+    // this.formGroup = new FormGroup(Object.fromEntries(pedidoFormControlers));
   }
 
-  obterQuantidadeDePedidoView(): number {
-    return this.pedidoView.quantidade;
+  initFormGroup(): void {
+    this.formGroup = new FormGroup({
+      id: new FormControl(0),
+      nome: new FormControl('prato padrão'),
+      preco: new FormControl(0),
+      quantidade: new FormControl(0),
+      total: new FormControl(0)
+    });
   }
 
-  getConfirmarNovaQuantidadeEvent(): EventEmitter<PedidoView> {
-    return this.pedidoViewAtualizadoEvent;
+  obterFormControl(formControlName: string): FormControl {
+    const control = this.formGroup.get(formControlName);
+    if (!control) {
+      throw new Error(`FormControl com nome "${formControlName}" não existe.`);
+    }
+    return control as FormControl;
   }
 
-  atualizarQuantidadeDePedidoView(quantidade: number): void {
-    this.pedidoView.quantidade = quantidade;
-    this.pedidoView.total = this.pedidoView.preco * quantidade;
-    this.pedidoViewAtualizadoEvent.emit(this.pedidoView);
+  confirmar(): void {
+    this.confirmarEvent.emit(true);
+  }
+
+  getConfirmarEvent(): EventEmitter<boolean> {
+    return this.confirmarEvent;
   }
 }
