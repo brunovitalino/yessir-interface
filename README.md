@@ -28,6 +28,7 @@ O sistema também terá:
 
 O desafio é desenvolver uma interface de usuário web que fará as iterações com os Garçons ou as Mesas.
 
+
 ## ✔️ Tecnologias utilizadas
 
 Lista de tudo que foi usado nesse desenvolvimento:
@@ -49,6 +50,16 @@ Para abrir e rodar o projeto, execute `npm i` para instalar as dependências e `
 Depois, acesse <a href="http://localhost:4200/">http://localhost:4200/</a> no seu navegador.
 
 O backend utilizado você encontra [aqui](https://github.com/brunovitalino/yessir-api).
+
+
+## 👥 Alguns usuários já cadastrados para se logar
+
+* garcom1@bvlabs.lol / 1234
+* garcom3@bvlabs.lol / 1234
+* mesa1@bvlabs.lol / 1234
+* mesa5@bvlabs.lol / 1234
+* mesa9@bvlabs.lol / 1234
+
 
 ## 📚 Mais informações do projeto
 
