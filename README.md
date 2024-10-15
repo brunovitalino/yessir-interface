@@ -6,6 +6,20 @@ YesSir é um sistema de atendimento ao cliente em restaurantes. No momento é um
 <img src="printscreen2.png" alt="Imagem do atendimento YesSir" width="50%">
 
 
+## 🛠️ Site
+
+[http://www.bvlabs.lol](http://www.bvlabs.lol)
+
+
+## 👥 Alguns usuários já cadastrados para se logar
+
+* garcom1@bvlabs.lol / 1234
+* garcom3@bvlabs.lol / 1234
+* mesa1@bvlabs.lol / 1234
+* mesa5@bvlabs.lol / 1234
+* mesa9@bvlabs.lol / 1234
+
+
 ## 🔨 Funcionalidades do projeto
 
 Nesse primeiro momento, nós temos as jornadas iniciais para os Garçons e para as Mesas onde os clientes se encontram.
@@ -50,15 +64,6 @@ Para abrir e rodar o projeto, execute `npm i` para instalar as dependências e `
 Depois, acesse <a href="http://localhost:4200/">http://localhost:4200/</a> no seu navegador.
 
 O backend utilizado você encontra [aqui](https://github.com/brunovitalino/yessir-api).
-
-
-## 👥 Alguns usuários já cadastrados para se logar
-
-* garcom1@bvlabs.lol / 1234
-* garcom3@bvlabs.lol / 1234
-* mesa1@bvlabs.lol / 1234
-* mesa5@bvlabs.lol / 1234
-* mesa9@bvlabs.lol / 1234
 
 
 ## 📚 Mais informações do projeto
