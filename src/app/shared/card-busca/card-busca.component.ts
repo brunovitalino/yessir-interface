@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalPedirComponent } from 'src/app/pages/cardapio/lista-cardapio/card-busca-cardapio/modal-pedir/modal-pedir.component';
+import { ModalPedirComponent } from 'src/app/cardapio/lista-cardapio/card-busca-cardapio/modal-pedir/modal-pedir.component';
 
 @Component({
   selector: 'app-card-busca',

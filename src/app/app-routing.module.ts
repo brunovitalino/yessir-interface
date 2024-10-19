@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CardapioComponent } from './pages/cardapio/cardapio.component';
-import { PedidoComponent } from './pages/pedido/pedido.component';
-import { AtendimentoComponent } from './pages/atendimento/atendimento.component';
 import { mesaAuthGuard } from './core/guards/mesa-auth.guard';
 import { garcomAuthGuard } from './core/guards/garcom-auth.guard';
+import { CardapioComponent } from './cardapio/cardapio.component';
+import { PedidoComponent } from './pedido/pedido.component';
+import { AtendimentoComponent } from './atendimento/atendimento.component';
 
 const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: () => import('./pages/autenticacao/autenticacao.module').then(m => m.AutenticacaoModule),
+    loadChildren: () => import('./autenticacao/autenticacao.module').then(m => m.AutenticacaoModule),
   },
   {
     path: '',

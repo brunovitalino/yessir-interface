@@ -2,14 +2,16 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AtendimentoModule } from './atendimento/atendimento.module';
 import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interceptor';
 import { MaterialModule } from './core/material/material.module';
-import { PagesModule } from './pages/pages.module';
 import { SharedModule } from './shared/shared.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AutenticacaoModule } from './pages/autenticacao/autenticacao.module';
+import { AutenticacaoModule } from './autenticacao/autenticacao.module';
+import { CardapioModule } from './cardapio/cardapio.module';
+import { PedidoModule } from './pedido/pedido.module';
 
 
 @NgModule({
@@ -23,8 +25,10 @@ import { AutenticacaoModule } from './pages/autenticacao/autenticacao.module';
     HttpClientModule,
     SharedModule,
     MaterialModule,
-    PagesModule,
-    AutenticacaoModule
+    AutenticacaoModule,
+    AtendimentoModule,
+    CardapioModule,
+    PedidoModule
   ],
   providers: [
     {
