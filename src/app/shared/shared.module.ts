@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../core/material/material.module';
 import { BannerComponent } from './banner/banner.component';
 import { BotaoControleComponent } from './botao-controle/botao-controle.component';
-import { CardBuscaComponent } from './card-busca/card-busca.component';
 import { CardComponent } from './card/card.component';
 import { ContainerComponent } from './container/container.component';
 import { CrudListComponent } from './cruds/crud-list/crud-list.component';
@@ -25,7 +24,6 @@ import { SeletorQuantidadeComponent } from './seletor-quantidade/seletor-quantid
     BannerComponent,
     BotaoControleComponent,
     CardComponent,
-    CardBuscaComponent,
     ContainerComponent,
     CrudListComponent,
     DropdownUfComponent,
@@ -47,7 +45,6 @@ import { SeletorQuantidadeComponent } from './seletor-quantidade/seletor-quantid
     BannerComponent,
     BotaoControleComponent,
     CardComponent,
-    CardBuscaComponent,
     ContainerComponent,
     CrudListComponent,
     DropdownUfComponent,
