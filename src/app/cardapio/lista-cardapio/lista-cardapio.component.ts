@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Cardapio } from 'src/app/core/model/cardapio';
+import { Imagem } from 'src/app/core/model/imagem';
 import { CardapioService } from 'src/app/core/service/cardapio.service';
 
 @Component({
@@ -11,14 +12,17 @@ import { CardapioService } from 'src/app/core/service/cardapio.service';
 export class ListaCardapioComponent implements OnInit {
 
   listaCardapio: Cardapio[] = [];
+  cardapioImagens: Imagem[] = [
+    { nome: "Arroz", url: "assets/imagens/Arroz.png", descricao: "Imagem de um item de cardápio" }
+  ];
 
   constructor(private cardapioService: CardapioService) { }
 
   ngOnInit(): void {
     this.cardapioService.findAllContent().subscribe({
-      next: cardapioList => {
-        this.listaCardapio = cardapioList
-      },
+      next: cardapioList => this.listaCardapio = cardapioList.map(c => {
+        c.imagem = this.cardapioImagens[0]; return c;
+      }),
       error: err => console.log('Não foi possível listar os itens de cardapio', err)
     })
   }
