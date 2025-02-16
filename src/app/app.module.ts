@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -12,6 +12,11 @@ import { SharedModule } from './shared/shared.module';
 import { AutenticacaoModule } from './autenticacao/autenticacao.module';
 import { CardapioModule } from './cardapio/cardapio.module';
 import { PedidoModule } from './pedido/pedido.module';
+import { EnvironmentService } from './core/service/environment.service';
+
+export function initializeApp(configService: EnvironmentService) {
+  return () => configService.loadConfig(); // Retorna uma Promise
+}
 
 
 @NgModule({
@@ -35,7 +40,15 @@ import { PedidoModule } from './pedido/pedido.module';
       provide: HTTP_INTERCEPTORS,
       useClass: AutenticacaoInterceptor,
       multi: true
+    },
+    EnvironmentService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [EnvironmentService],
+      multi: true
     }
+
   ],
   bootstrap: [AppComponent]
 })
