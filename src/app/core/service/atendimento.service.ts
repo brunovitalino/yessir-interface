@@ -1,19 +1,23 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { map, Observable } from 'rxjs';
 import { Atendimento } from '../model/atendimento';
 import { PageResponse } from '../model/page-response';
+import { EnvironmentService } from './environment.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AtendimentoService {
 
-  private readonly API_HOST = environment.apiHost;
-  private readonly ENDPOINT = `${this.API_HOST}/atendimentos`
+  private readonly ENDPOINT: string;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private environmentService: EnvironmentService
+  ) {
+    this.ENDPOINT = `${this.environmentService.apiHost}/atendimentos`;
+  }
   
   findAllContent(): Observable<Atendimento[]> {
     return this.findAll().pipe(

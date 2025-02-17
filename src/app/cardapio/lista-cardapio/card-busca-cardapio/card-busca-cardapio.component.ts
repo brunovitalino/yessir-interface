@@ -12,13 +12,7 @@ import { ModalPedirComponent } from './modal-pedir/modal-pedir.component';
 })
 export class CardBuscaCardapioComponent {
 
-  @Input() cardapio : Cardapio = {
-    id: 999,
-    nome: "Macarrão",
-    preco: 24,
-    cardapioIcone: { nome: "local_dining" },
-    cardapioTipo: { nome: "COMIDA" }
-  }
+  @Input() cardapio : Cardapio;
 
   constructor(
     public dialog: MatDialog,

@@ -1,19 +1,23 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { map, Observable } from 'rxjs';
 import { Mesa } from '../model/mesa';
 import { PageResponse } from '../model/page-response';
+import { EnvironmentService } from './environment.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MesaService {
 
-  private readonly API_HOST = environment.apiHost;
-  private readonly ENDPOINT = `${this.API_HOST}/mesas`
+  private readonly ENDPOINT: string;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private environmentService: EnvironmentService
+  ) {
+    this.ENDPOINT = `${this.environmentService.apiHost}/mesas`;
+  }
   
   findAllContent(): Observable<Mesa[]> {
     return this.findAll().pipe(

@@ -1,19 +1,23 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Cardapio } from '../model/cardapio';
 import { PageResponse } from '../model/page-response';
+import { EnvironmentService } from './environment.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardapioService {
 
-  private readonly API_HOST = environment.apiHost;
-  private readonly ENDPOINT = `${this.API_HOST}/cardapios`;
-
-  constructor(private httpClient: HttpClient) { }
+  private readonly ENDPOINT: string;
+  
+  constructor(
+    private httpClient: HttpClient,
+    private environmentService: EnvironmentService
+  ) {
+    this.ENDPOINT = `${this.environmentService.apiHost}/cardapios`;
+  }
   
   findAllContent(): Observable<Cardapio[]> {
     return this.findAll().pipe(
