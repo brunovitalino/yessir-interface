@@ -1,22 +1,23 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { map, Observable } from 'rxjs';
-import { TokenService } from './token.service';
 import { Pedido } from '../model/pedido';
 import { PageResponse } from '../model/page-response';
+import { EnvironmentService } from './environment.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PedidoService {
 
-  private readonly API_HOST = environment.apiHost;
-  private readonly ENDPOINT = `${this.API_HOST}/pedidos`
+  private readonly ENDPOINT: string;
 
-  private token: string;
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private environmentService: EnvironmentService
+  ) {
+    this.ENDPOINT = `${this.environmentService.apiHost}/pedidos`;
+  }
   
   findAllContent(): Observable<Pedido[]> {
     return this.findAll().pipe(

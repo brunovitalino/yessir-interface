@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { UserService } from './user.service';
 import { EnvironmentService } from './environment.service';
 
@@ -22,7 +21,6 @@ export class AutenticacaoService {
     private environmentService: EnvironmentService
   ) {
     this.ENDPOINT = `${this.environmentService.apiHost}/auth/login`;
-    console.log('CALL: apiHost()/auth/login: ', this.ENDPOINT);
   }
 
   autenticar(email: string, senha: string): Observable<HttpResponse<AuthResponse>> {
